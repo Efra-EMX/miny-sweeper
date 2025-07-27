@@ -1,0 +1,52 @@
+[gd_scene load_steps=10 format=3 uid="uid://fuvut23w11wf"]
+
+[ext_resource type="Script" uid="uid://8p1u4kwyulpv" path="res://scenes/terrain/TerrainChunk.gd" id="1_4ugvn"]
+[ext_resource type="Texture2D" uid="uid://jkexk3eus3vt" path="res://assets/tileset/Numbers.aseprite" id="1_pmdo0"]
+[ext_resource type="Texture2D" uid="uid://djvqmr5xqmid3" path="res://assets/tileset/Icons.aseprite" id="3_k8v8q"]
+[ext_resource type="Texture2D" uid="uid://xyykmd0ribkx" path="res://assets/tileset/Terrain.aseprite" id="4_l7tcq"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_k8v8q"]
+texture = ExtResource("1_pmdo0")
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+6:0/0 = 0
+7:0/0 = 0
+8:0/0 = 0
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_l7tcq"]
+texture = ExtResource("3_k8v8q")
+1:0/0 = 0
+2:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_ohv64"]
+sources/0 = SubResource("TileSetAtlasSource_k8v8q")
+sources/1 = SubResource("TileSetAtlasSource_l7tcq")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ohv64"]
+texture = ExtResource("4_l7tcq")
+1:0/0 = 0
+0:1/0 = 0
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_djht2"]
+sources/0 = SubResource("TileSetAtlasSource_ohv64")
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_4ugvn")
+size = Vector2i(8, 8)
+
+[node name="BombTileMap" type="TileMapLayer" parent="."]
+tile_set = SubResource("TileSet_ohv64")
+
+[node name="WallTileMap" type="TileMapLayer" parent="."]
+tile_set = SubResource("TileSet_djht2")
+
+[node name="NumberTileMap" type="TileMapLayer" parent="."]
+tile_set = SubResource("TileSet_ohv64")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(64, 64)
