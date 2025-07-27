@@ -1,0 +1,94 @@
+[gd_scene load_steps=10 format=3 uid="uid://y4ut4m7cynpc"]
+
+[ext_resource type="Script" uid="uid://dwm14202k38sx" path="res://scenes/menus/pause screen/pause_screen.gd" id="1_uxst3"]
+[ext_resource type="Script" uid="uid://dh2sguw75mt8h" path="res://scenes/menus/essentials/Page.gd" id="2_j18en"]
+[ext_resource type="LabelSettings" uid="uid://ynnau0nhkj75" path="res://assets/ui/themes/Axial/label-header.tres" id="3_h6p6h"]
+[ext_resource type="Script" uid="uid://dkp0gixmus7fj" path="res://scenes/menus/essentials/buttons/MethodButton.gd" id="4_xa8fp"]
+[ext_resource type="Script" uid="uid://dgtfod450rid6" path="res://scenes/menus/essentials/buttons/PageSwitchButton.gd" id="5_owrqr"]
+[ext_resource type="Script" uid="uid://d2hk27uowfiym" path="res://scenes/menus/essentials/buttons/ChangeSceneButton.gd" id="6_8eo1e"]
+[ext_resource type="PackedScene" uid="uid://da2eta75lyh4w" path="res://scenes/menus/settings menu/settings_page.tscn" id="7_tjd2e"]
+
+[sub_resource type="InputEventAction" id="InputEventAction_l0oxl"]
+action = &"ui_cancel"
+
+[sub_resource type="Shortcut" id="Shortcut_viij5"]
+events = [SubResource("InputEventAction_l0oxl")]
+
+[node name="Pause Screen" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_uxst3")
+
+[node name="Panel" type="ColorRect" parent="."]
+process_mode = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.392157)
+
+[node name="Pause Menu" type="Control" parent="Panel" node_paths=PackedStringArray("default_focus")]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -56.0
+offset_right = 56.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_j18en")
+default_focus = NodePath("VBoxContainer/Resume")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/Pause Menu"]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -48.0
+offset_right = 48.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Title" type="Label" parent="Panel/Pause Menu/VBoxContainer"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+text = "PAUSED"
+label_settings = ExtResource("3_h6p6h")
+horizontal_alignment = 1
+
+[node name="Resume" type="Button" parent="Panel/Pause Menu/VBoxContainer" node_paths=PackedStringArray("shortcut_context", "node")]
+layout_mode = 2
+shortcut_context = NodePath("../..")
+shortcut = SubResource("Shortcut_viij5")
+shortcut_feedback = false
+shortcut_in_tooltip = false
+text = "RESUME"
+script = ExtResource("4_xa8fp")
+node = NodePath("../../../..")
+method_name = "pause"
+
+[node name="Settings" type="Button" parent="Panel/Pause Menu/VBoxContainer" node_paths=PackedStringArray("target_page")]
+layout_mode = 2
+text = "SETTINGS"
+script = ExtResource("5_owrqr")
+target_page = NodePath("../../../Settings Page")
+
+[node name="Return to TItle" type="Button" parent="Panel/Pause Menu/VBoxContainer"]
+layout_mode = 2
+text = "RETURN TO TITLE"
+script = ExtResource("6_8eo1e")
+target_scene = "res://scenes/menus/title_screen.tscn"
+
+[node name="Settings Page" parent="Panel" instance=ExtResource("7_tjd2e")]
+visible = false
+layout_mode = 1

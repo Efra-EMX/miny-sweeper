@@ -1,0 +1,10 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://dxf80yevn66gn"]
+
+[ext_resource type="FontFile" uid="uid://dn727l3ca5xc6" path="res://assets/ui/themes/Axial/AXIAL.ttf" id="1_437ka"]
+
+[resource]
+font = ExtResource("1_437ka")
+font_size = 6
+outline_size = 4
+outline_color = Color(0.223529, 0.239216, 0.321569, 1)
+shadow_size = 0

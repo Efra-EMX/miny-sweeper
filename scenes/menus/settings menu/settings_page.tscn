@@ -1,0 +1,67 @@
+[gd_scene load_steps=5 format=3 uid="uid://da2eta75lyh4w"]
+
+[ext_resource type="Script" uid="uid://dh2sguw75mt8h" path="res://scenes/menus/essentials/Page.gd" id="1_elk5b"]
+[ext_resource type="LabelSettings" uid="uid://ynnau0nhkj75" path="res://assets/ui/themes/Axial/label-header.tres" id="2_8p8t6"]
+[ext_resource type="PackedScene" uid="uid://dl0ifjw411upq" path="res://scenes/menus/settings menu/settings_menu.tscn" id="3_3hval"]
+[ext_resource type="Script" uid="uid://btas83sxfvp70" path="res://scenes/menus/essentials/buttons/PageBackButton.gd" id="4_a0tqk"]
+
+[node name="Settings Page" type="Control" node_paths=PackedStringArray("default_focus")]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -48.0
+offset_top = -42.0
+offset_right = 48.0
+offset_bottom = 38.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_elk5b")
+default_focus = NodePath("Panel/Settings/Sliders/BGM")
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 16.0
+grow_horizontal = 2
+text = "SETTINGS"
+label_settings = ExtResource("2_8p8t6")
+horizontal_alignment = 1
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 16.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Settings" parent="Panel" instance=ExtResource("3_3hval")]
+layout_mode = 1
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
+
+[node name="Back" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -16.0
+offset_top = -12.0
+offset_right = 16.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "BACK"
+script = ExtResource("4_a0tqk")
+
+[editable path="Panel/Settings"]

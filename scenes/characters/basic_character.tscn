@@ -1,0 +1,98 @@
+[gd_scene load_steps=13 format=3 uid="uid://dmumi8ref84wc"]
+
+[ext_resource type="Script" uid="uid://bvfacx4epfw42" path="res://scripts/classes/Character.gd" id="1_3uolt"]
+[ext_resource type="Script" uid="uid://crjb8dtxys62l" path="res://scripts/controllers/PlayerController.gd" id="2_phsfo"]
+[ext_resource type="Script" uid="uid://cghd6ryeteifh" path="res://scripts/components/MovementComponent.gd" id="3_7x62t"]
+[ext_resource type="Script" uid="uid://dblg70lo7213n" path="res://scripts/components/HurtBoxComponent.gd" id="3_xj3fk"]
+[ext_resource type="Script" uid="uid://claxjl5bwx5kg" path="res://scripts/components/StatsComponent.gd" id="4_58xif"]
+[ext_resource type="Texture2D" uid="uid://da0sf4n8mav6f" path="res://assets/shapes/square.png" id="5_4733v"]
+[ext_resource type="Script" uid="uid://duls6vdvnw86r" path="res://scripts/components/HitBoxComponent.gd" id="6_hnaue"]
+[ext_resource type="Script" uid="uid://cdjdv2lrn2w1j" path="res://scripts/limboai/GenericHSM.gd" id="7_kfmit"]
+[ext_resource type="Script" uid="uid://chifrsevdmxr5" path="res://scripts/limboai/GenericState.gd" id="8_b8drn"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_33sj8"]
+radius = 8.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jn14c"]
+radius = 4.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ddrfk"]
+size = Vector2(16, 16)
+
+[node name="BasicCharacter" type="CharacterBody2D" groups=["players"]]
+script = ExtResource("1_3uolt")
+
+[node name="PlayerController" type="Node" parent="." node_paths=PackedStringArray("parent_character", "movement_component")]
+script = ExtResource("2_phsfo")
+parent_character = NodePath("..")
+movement_component = NodePath("../MovementComponent")
+
+[node name="MovementComponent" type="Node" parent="." node_paths=PackedStringArray("parent_character")]
+script = ExtResource("3_7x62t")
+parent_character = NodePath("..")
+
+[node name="StatsComponent" type="Node" parent="." node_paths=PackedStringArray("parent_character")]
+script = ExtResource("4_58xif")
+parent_character = NodePath("..")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+position = Vector2(2.38419e-07, 2.38419e-07)
+scale = Vector2(16, 16)
+texture = ExtResource("5_4733v")
+
+[node name="CollisionBox" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_33sj8")
+debug_color = Color(0, 0, 1, 0.196078)
+
+[node name="HurtBoxComponent" type="Area2D" parent="." node_paths=PackedStringArray("parent_character")]
+script = ExtResource("3_xj3fk")
+parent_character = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBoxComponent"]
+shape = SubResource("CircleShape2D_jn14c")
+debug_color = Color(0, 1, 0, 0.196078)
+
+[node name="HitBoxComponent" type="Area2D" parent="."]
+position = Vector2(24, 0)
+script = ExtResource("6_hnaue")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBoxComponent"]
+shape = SubResource("RectangleShape2D_ddrfk")
+debug_color = Color(1, 0, 0, 0.196078)
+
+[node name="StateMachine" type="LimboHSM" parent="." node_paths=PackedStringArray("target_agent")]
+script = ExtResource("7_kfmit")
+target_agent = NodePath("..")
+anystate_transitions = {
+"down": NodePath("down"),
+"hurt": NodePath("hurt")
+}
+
+[node name="idle" type="LimboState" parent="StateMachine"]
+script = ExtResource("8_b8drn")
+transitions = {
+"attack": NodePath("../attack"),
+"move": NodePath("../move")
+}
+
+[node name="move" type="LimboState" parent="StateMachine"]
+script = ExtResource("8_b8drn")
+transitions = {
+"finished": NodePath("../idle")
+}
+
+[node name="attack" type="LimboState" parent="StateMachine"]
+script = ExtResource("8_b8drn")
+transitions = {
+"finished": NodePath("../idle")
+}
+
+[node name="hurt" type="LimboState" parent="StateMachine"]
+script = ExtResource("8_b8drn")
+transitions = {
+"finished": NodePath("../idle")
+}
+
+[node name="down" type="LimboState" parent="StateMachine"]
+script = ExtResource("8_b8drn")
+transitions = {}

@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://bay5fg34y5hhu"]
+
+[ext_resource type="PackedScene" uid="uid://y4ut4m7cynpc" path="res://scenes/menus/pause screen/pause_screen.tscn" id="1_cmqca"]
+[ext_resource type="PackedScene" uid="uid://dmumi8ref84wc" path="res://scenes/characters/basic_character.tscn" id="2_208ee"]
+
+[node name="Stage" type="Node2D"]
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Pause Screen" parent="UI" instance=ExtResource("1_cmqca")]
+
+[node name="BasicCharacter" parent="." instance=ExtResource("2_208ee")]
+position = Vector2(160, 88)
