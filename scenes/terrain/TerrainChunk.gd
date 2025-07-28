@@ -3,6 +3,7 @@ extends Node2D
 @export var chunk_size: Vector2i = Vector2i(8, 8)
 @export var bomb_count: int = 10
 
+@onready var floor_tilemap: TileMapLayer = $FloorTileMap
 @onready var bomb_tilemap: TileMapLayer = $BombTileMap
 @onready var label_tilemap: TileMapLayer = $LabelTileMap
 @onready var wall_tilemap: TileMapLayer = $WallTileMap
@@ -92,6 +93,7 @@ func set_wall(coords: Vector2i, value: bool) -> void:
 		wall_tilemap.set_cell(coords, 0, Vector2i(0,1))
 		return
 	wall_tilemap.set_cell(coords)
+	floor_tilemap.set_cell(coords, 0, Vector2i(1,0))
 	
 #func update_bombs_batch() -> void:
 	#for coords:Vector2i in all_coords:
