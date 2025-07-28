@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="EMX-ProjectTemplate"
+config/name="Miny Sweeper"
 config/version="1.0.0"
 config/tags=PackedStringArray("2d")
 run/main_scene="res://scenes/menus/title_screen.tscn"

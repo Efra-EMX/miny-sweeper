@@ -4,8 +4,12 @@ func _enter_tree() -> void:
 	if !OS.is_debug_build():
 		queue_free()
 		return
-	get_window().always_on_top = true
 	process_mode = PROCESS_MODE_ALWAYS 
+
+func _ready() -> void:
+	if !OS.is_debug_build():
+		return
+	get_window().always_on_top = true
 
 func _process(_delta: float) -> void:
 	if !OS.is_debug_build():

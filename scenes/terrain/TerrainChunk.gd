@@ -1,10 +1,10 @@
 extends Node2D
 
-@export var size: Vector2i = Vector2i(32, 32)
+@export var chunk_size: Vector2i = Vector2i(8, 8)
 @export var bomb_count: int = 10
 
 @onready var bomb_tilemap: TileMapLayer = $BombTileMap
-@onready var number_tilemap: TileMapLayer = $NumberTileMap
+@onready var label_tilemap: TileMapLayer = $LabelTileMap
 @onready var wall_tilemap: TileMapLayer = $WallTileMap
 @onready var started: bool = false
 
@@ -23,43 +23,69 @@ const direction_vectors: Dictionary[StringName, Vector2i] = {
 	&"DownRight"	: Vector2i(1, 1)
 }
 
-var all_coords: Array[Vector2i]
+var loaded_chunks: Array[Vector2i]
 
 func _ready() -> void:
-	for x in size.x:
-		for y in size.y:
-			all_coords.append(Vector2i(x, y))
+	pass
 	#generate_chunk()
 
-func generate_chunk(empty_tiles: Array[Vector2i] = []) -> void:
+func generate_chunk(chunk_coords: Vector2i, empty_tiles: Array[Vector2i] = []) -> void:
+	if loaded_chunks.has(chunk_coords):
+		return
+	
+	for coords:Vector2i in get_coords_in_chunk(chunk_coords):
+		#set_bomb(coords, bomb_array[coords.x + (coords.y * chunk_size.x)])
+		set_wall(coords, true)
+	
 	var bomb_array: Array[bool]
 	bomb_array.resize(bomb_count)
 	bomb_array.fill(true)
-	bomb_array.resize((size.x * size.y) - empty_tiles.size())
+	bomb_array.resize((chunk_size.x * chunk_size.y) - empty_tiles.size())
 	bomb_array.shuffle()
 	
 	#var array_size: int = bomb_array.size()
 	for index in bomb_array.size():
-		index = (size.x * size.y) - (index + 1)
+		index = (chunk_size.x * chunk_size.y) - (index + 1)
 		
-		var x: int = index % size.x
-		var coords: Vector2i = Vector2i(x, (index - x) / size.x)
+		var x: int = index % chunk_size.x
+		var coords: Vector2i = Vector2i(x, (index - x) / chunk_size.x) + (chunk_coords * chunk_size)
 		
 		if empty_tiles.has(coords):
 			continue
 		set_bomb(coords, bomb_array.pop_back())
 		
-	for coords:Vector2i in all_coords:
-		#set_bomb(coords, bomb_array[coords.x + (coords.y * size.x)])
-		set_wall(coords, true)
-	
-	#update_number_batch()
+	loaded_chunks.append(chunk_coords)
+	#update_label_batch()
+
+func get_coords_in_chunk(chunk_coords: Vector2i) -> Array[Vector2i]:
+	var all_coords: Array[Vector2i]
+	for x in chunk_size.x:
+		for y in chunk_size.y:
+			all_coords.append(Vector2i(x, y) + (chunk_coords * chunk_size))
+	return all_coords
+
+func coords_to_chunk_coords(coords: Vector2) -> Vector2i:
+	return floor(coords / Vector2(chunk_size))
+
+func is_tile_loaded(coords: Vector2i) -> bool:
+	return loaded_chunks.has(coords_to_chunk_coords(coords))
+
+func position_to_chunk_coords(position: Vector2) -> Vector2i:
+	var coords: Vector2i = wall_tilemap.local_to_map(wall_tilemap.to_local(position))
+	return coords_to_chunk_coords(coords)
 
 func set_bomb(coords: Vector2i, value: bool) -> void:
 	if value:
 		bomb_tilemap.set_cell(coords, 1, bomb_atlas_coords)
-		return
-	bomb_tilemap.set_cell(coords)
+	else:
+		bomb_tilemap.set_cell(coords)
+	
+	#if is_tile_revealed(coords):
+		#return
+	
+	#for nearby_coords in get_nearby_coords(coords):
+		#if is_tile_revealed(nearby_coords):
+			#update_label(nearby_coords)
 
 func set_wall(coords: Vector2i, value: bool) -> void:
 	if value:
@@ -74,19 +100,34 @@ func set_wall(coords: Vector2i, value: bool) -> void:
 			#continue
 		#bomb_tilemap.set_cell(coords)
 
-func update_number_batch() -> void:
-	for coords:Vector2i in all_coords:
+func update_label_batch(chunk_coords: Vector2i) -> void:
+	for coords:Vector2i in get_coords_in_chunk(chunk_coords):
 		if is_tile_has_bomb(coords):
 			continue
-		update_number(coords)
+		update_label(coords)
 	
-func update_number(coords: Vector2i) -> void:
-	if not is_tile_has_bomb(coords):
-		var bombs: int = get_nearby_bomb_count(coords)
-		if bombs > 0:
-			number_tilemap.set_cell(coords, 0, Vector2i(bombs, 0))
-			return
-	number_tilemap.set_cell(coords)
+func update_label(coords: Vector2i) -> void:
+	if not is_tile_loaded(coords):
+		return
+	#if label_tilemap.get_cell_source_id(coords) >= 0:
+		#if not is_tile_has_bomb_nearby(coords):
+			#var tile_data: TileData = label_tilemap.get_cell_tile_data(coords)
+			#if tile_data != null:
+				#tile_data.modulate = Color(1, 1, 1, 0.5)
+		#return
+	
+	if is_tile_has_bomb(coords):
+		label_tilemap.set_cell(coords, 1, bomb_atlas_coords)
+		return
+		
+	var bombs: int = get_nearby_bomb_count(coords)
+	if bombs > 0:
+		label_tilemap.set_cell(coords, 0, Vector2i(bombs, 0))
+		return
+	label_tilemap.set_cell(coords)
+
+func get_nearby_coords(coords: Vector2i) -> Array:
+	return direction_vectors.values().map(func(value: Vector2i): return value + coords)
 
 func get_nearby_bomb_count(coords: Vector2i) -> int:
 	var bombs: int = 0
@@ -120,20 +161,26 @@ func chain_reveal(coords: Vector2i) -> void:
 	if is_tile_has_bomb_nearby(coords) or is_tile_has_bomb(coords):
 		return
 	
-	for neighbor_coords in wall_tilemap.get_surrounding_cells(coords):
+	for neighbor_coords in get_nearby_coords(coords):
 		chain_reveal(neighbor_coords)
 
 func reveal(coords: Vector2i) -> void:
+	#set_bomb(coords, false)
+	
+	for neighbor_coords in get_nearby_coords(coords):
+		if not is_tile_loaded(neighbor_coords):
+			generate_chunk(coords_to_chunk_coords(neighbor_coords))
+	
 	set_wall(coords, false)
-	update_number(coords)
+	update_label(coords)
 
 func toggle_flag(coords: Vector2i) -> void:
 	if is_tile_revealed(coords):
 		return
-	if number_tilemap.get_cell_source_id(coords) < 0:
-		number_tilemap.set_cell(coords, 1, Vector2i(2,0))
+	if label_tilemap.get_cell_source_id(coords) < 0:
+		label_tilemap.set_cell(coords, 1, Vector2i(2,0))
 		return
-	number_tilemap.set_cell(coords)
+	label_tilemap.set_cell(coords)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
@@ -144,15 +191,15 @@ func _unhandled_input(event: InputEvent) -> void:
 		var coords: Vector2i = wall_tilemap.local_to_map(wall_tilemap.to_local(mouse_position))
 		
 		if event.button_index == MOUSE_BUTTON_LEFT:
-			if not started:
-				var empty_tiles: Array[Vector2i] = [coords]
-				
-				for direction in direction_vectors.values():
-					if empty_tiles.has(coords+direction):
-						continue
-					empty_tiles.append(coords+direction)
-				generate_chunk(empty_tiles)
-				started = true
+			if not is_tile_loaded(coords):
+				if started:
+					generate_chunk(coords_to_chunk_coords(coords))
+				else:
+					var empty_tiles: Array[Vector2i] = [coords]
+					empty_tiles.append_array(get_nearby_coords(coords))
+					
+					generate_chunk(coords_to_chunk_coords(coords), empty_tiles)
+					started = true
 			chain_reveal(coords)
 		if event.button_index == MOUSE_BUTTON_RIGHT:
 			toggle_flag(coords)
