@@ -178,13 +178,15 @@ func chain_reveal(coords: Vector2i) -> void:
 
 func break_tile(coords: Vector2i) -> void:
 	if is_tile_has_bomb(coords):
-		#spawn bomb and explode it
+		reveal(coords)
+		var new_bomb: Entity = preload("uid://b3wjebir88nf8").instantiate()
+		new_bomb.position = coords_to_position(coords)
+		Global.stage.add_child(new_bomb)
+		new_bomb.interact()
 		pass
 	else:
 		#spawn materials
-		pass
-	
-	chain_reveal(coords)
+		chain_reveal(coords)
 
 func toggle_flag(coords: Vector2i) -> void:
 	if is_tile_revealed(coords):

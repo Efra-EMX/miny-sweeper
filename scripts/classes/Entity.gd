@@ -26,7 +26,7 @@ func get_coords() -> Vector2i:
 func take_hit(attack_data: AttackData) -> bool:
 	return false
 
-func interact(from: Entity) -> void:
+func interact(from: Entity = null) -> void:
 	pass
 
 func interact_with(coords: Vector2i) -> void:

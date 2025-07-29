@@ -22,7 +22,7 @@ func interact_with(coords: Vector2i) -> void:
 		if target_entity == null:
 			await movement_component.move(coords)
 		else:
-			await interact(self)
+			await target_entity.interact(self)
 	elif mining_component != null:
 		await mining_component.mine(coords)
 	

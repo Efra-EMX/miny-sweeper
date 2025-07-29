@@ -1,4 +1,5 @@
 extends Node
+class_name MiningComponent
 
 @onready var parent_entity: Entity = get_parent()
 
