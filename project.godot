@@ -35,6 +35,8 @@ SceneManager="*res://autoloads/SceneManager.tscn"
 Settings="*res://autoloads/Settings.gd"
 DebugController="*res://scripts/debug/DebugController.gd"
 FocusManager="*res://autoloads/FocusManager.gd"
+Global="*res://autoloads/Global.gd"
+CallableBuffer="*res://autoloads/CallableBuffer.gd"
 
 [display]
 
@@ -70,8 +72,10 @@ folder_colors={
 [global_group]
 
 pages="A group of Page nodes"
-enemies=""
-players=""
+player=""
+enemy=""
+entity=""
+character=""
 
 [gui]
 

@@ -1,0 +1,25 @@
+[gd_scene load_steps=6 format=3 uid="uid://bg248w7ij17mf"]
+
+[ext_resource type="PackedScene" uid="uid://y4ut4m7cynpc" path="res://scenes/menus/pause screen/pause_screen.tscn" id="1_0uo0i"]
+[ext_resource type="Script" uid="uid://cefahidwlnnog" path="res://scenes/stages/Stage.gd" id="1_h25yc"]
+[ext_resource type="PackedScene" uid="uid://fuvut23w11wf" path="res://scenes/terrain/Terrain.tscn" id="3_ds8dt"]
+[ext_resource type="PackedScene" uid="uid://df3tcht6mf01n" path="res://scenes/characters/Miny/Miny.tscn" id="4_h25yc"]
+[ext_resource type="Script" uid="uid://duxi1rgg5tuq" path="res://scripts/classes/Camera.gd" id="4_oiu06"]
+
+[node name="Stage" type="Node2D"]
+script = ExtResource("1_h25yc")
+
+[node name="UI" type="CanvasLayer" parent="."]
+layer = 100
+visible = false
+
+[node name="Pause Screen" parent="UI" instance=ExtResource("1_0uo0i")]
+
+[node name="Terrain" parent="." instance=ExtResource("3_ds8dt")]
+
+[node name="Camera" type="Camera2D" parent="." node_paths=PackedStringArray("target_list")]
+script = ExtResource("4_oiu06")
+target_list = [NodePath("../Miny")]
+
+[node name="Miny" parent="." instance=ExtResource("4_h25yc")]
+position = Vector2(84, 84)

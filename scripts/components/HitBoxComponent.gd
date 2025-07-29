@@ -12,7 +12,7 @@ func _ready() -> void:
 	monitorable = false
 
 func hit(data: AttackData = attack_data) -> Array[Character]:
-	if data == null:
+	if !data:
 		return []
 	if parent_character:
 		data.attacker = parent_character

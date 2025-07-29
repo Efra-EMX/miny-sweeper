@@ -4,32 +4,27 @@ class_name PlayerController
 
 const move_actions: Array[StringName] = [&"up", &"down", &"right", &"left"]
 
-@export var parent_character: Character:
-	set(value):
-		parent_character = value
-		update_configuration_warnings()
+var parent_entity: Character
 @export var movement_component: MovementComponent:
 	set(value):
 		movement_component = value
 		update_configuration_warnings()
-#@export var state_machine: LimboHSM:
-	#set(value):
-		#state_machine = value
-		#update_configuration_warnings()
 
-func _physics_process(delta: float) -> void:
-	if Engine.is_editor_hint():
-		return
-	
-	var direction: Vector2 = Input.get_vector(&"left", &"right", &"up", &"down").normalized()
-	movement_component.direction = direction
+func _ready() -> void:
+	parent_entity = get_parent()
+
+func _unhandled_input(event: InputEvent) -> void:
+	for input in move_actions:
+		if event.is_action_pressed(input):
+			if not movement_component.is_moving():
+				movement_component.step(Global.direction_vectors[input])
+				return
+			CallableBuffer.add(movement_component.step.bind(Global.direction_vectors[input]), movement_component.is_moving, true)
 
 func _get_configuration_warnings() -> PackedStringArray:
 	var warnings: PackedStringArray = PackedStringArray()
-	if parent_character == null:
-		warnings.append("Parent Character must not be empty.")
+	if get_parent() is not Entity:
+		warnings.append("Parent must be Entity.")
 	if movement_component == null:
 		warnings.append("Movement Component must not be empty.")
-	#if !state_machine:
-		#warnings.append("State Machine must not be empty.")
 	return warnings

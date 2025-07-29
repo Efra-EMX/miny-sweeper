@@ -2,24 +2,47 @@
 extends Node
 class_name MovementComponent
 
-@export var parent_character: Character:
+@onready var parent_entity: Entity = get_parent()
+
+var direction: Vector2i:
 	set(value):
-		parent_character = value
-		update_configuration_warnings()
-@export var speed:float = 100.0
-@export_range(0.0, 2.0) var speed_modifier: float = 1
+		direction = value
+		
+		if direction.x == 0:
+			return
+		
+		parent_entity.scale.x = direction.x
+var move_tween: Tween
 
-var direction: Vector2 = Vector2.ZERO
+signal moving
+signal moved
 
-func _physics_process(delta) -> void:
-	if Engine.is_editor_hint():
+func move(target_coords:Vector2i) -> void:
+	if move_tween:
+		move_tween.kill()
+	
+	direction = target_coords - parent_entity.coords
+	if Global.terrain.is_tile_revealed(target_coords):
+		move_tween = Global.terrain.move_to(parent_entity, target_coords)
+	else:
+		move_tween = Global.terrain.bounce_to(parent_entity, target_coords)
+	
+	moving.emit()
+	await move_tween.finished
+	moved.emit()
+	
+func step(direction:Vector2i):
+	if is_moving():
 		return
-	#if direction == Vector2.ZERO:
-		#return
-	parent_character.velocity = direction * speed * speed_modifier
-	parent_character.move_and_slide()
+	var target_coords: Vector2i = parent_entity.coords + direction
+	await move(target_coords)
+	
+func is_moving() -> bool:
+	if move_tween:
+		return move_tween.is_running()
+	return false
 
-func _get_configuration_warnings() -> PackedStringArray:
-	if parent_character:
+func _get_configuration_warnings():
+	if get_parent() is Entity:
 		return []
-	return ["Parent Character must not be empty."]
+	return ["Parent must be Entity."]

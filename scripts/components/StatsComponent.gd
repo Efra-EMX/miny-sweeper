@@ -2,15 +2,16 @@
 extends Node
 class_name StatsComponent
 
-@export var parent_character: Character:
-	set(value):
-		parent_character = value
-		update_configuration_warnings()
+#@export var parent: Character:
+	#set(value):
+		#parent = value
+		#update_configuration_warnings()
 
 @export var base_hp: int = 100
 @export var base_mp: int = 10
 @export var base_atk: int = 10
 
+@onready var parent: Node = get_parent()
 @onready var hp: int = base_hp:
 	set(value):
 		hp = clampi(value, 0, base_hp)
@@ -59,15 +60,15 @@ func heal(amount: int) -> bool:
 	heal_taken.emit(amount)
 	return true
 
-func is_alive() -> bool:
+func is_alive():
 	if hp > 0:
 		return true
 	return false
 
-func kill() -> void:
+func kill():
 	hp = 0
 
-func _get_configuration_warnings() -> PackedStringArray:
-	if parent_character != null:
+func _get_configuration_warnings():
+	if parent:
 		return []
-	return ["Parent Character must not be empty."]
+	return ["Parent must not be empty."]

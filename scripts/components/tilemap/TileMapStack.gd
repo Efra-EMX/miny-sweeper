@@ -6,13 +6,19 @@ extends TileMapLayer
 var target_tilemaps: Array[TileMapLayer]
 
 func _ready() -> void:
+	var initial_layer: int = 0
+	
+	if get_parent() is CanvasLayer:
+		get_parent().layer = - (stack_count)
+		initial_layer = get_parent().layer
+		
 	for index in stack_count:
 		index = index + 1
 		
 		var i: float = (index * (1 as float / stack_count))
 		
 		var new_canvas_layer: CanvasLayer = CanvasLayer.new()
-		new_canvas_layer.layer = index
+		new_canvas_layer.layer = initial_layer + index
 		new_canvas_layer.follow_viewport_enabled = true
 		new_canvas_layer.follow_viewport_scale = 1 + (i * stack_height)
 		add_child(new_canvas_layer)
