@@ -50,7 +50,8 @@ func generate_chunk(chunk_coords: Vector2i, empty_tiles: Array[Vector2i] = []) -
 		set_bomb(coords, bomb_array.pop_back())
 		
 	loaded_chunks.append(chunk_coords)
-	#update_label_batch()
+	if not started:
+		started = true
 
 func get_coords_in_chunk(chunk_coords: Vector2i) -> Array[Vector2i]:
 	var all_coords: Array[Vector2i]
@@ -217,7 +218,6 @@ func _unhandled_input(event: InputEvent) -> void:
 					empty_tiles.append_array(get_nearby_coords(coords))
 					
 					generate_chunk(coords_to_chunk_coords(coords), empty_tiles)
-					started = true
 			chain_reveal(coords)
 		if event.button_index == MOUSE_BUTTON_RIGHT:
 			toggle_flag(coords)
