@@ -1,14 +1,15 @@
-[gd_scene load_steps=13 format=4 uid="uid://df3tcht6mf01n"]
+[gd_scene load_steps=14 format=4 uid="uid://df3tcht6mf01n"]
 
 [ext_resource type="Script" uid="uid://bvfacx4epfw42" path="res://scripts/classes/Character.gd" id="1_0pyb8"]
 [ext_resource type="Script" uid="uid://crjb8dtxys62l" path="res://scripts/controllers/PlayerController.gd" id="1_6je5m"]
 [ext_resource type="Script" uid="uid://cghd6ryeteifh" path="res://scripts/components/MovementComponent.gd" id="2_0pyb8"]
 [ext_resource type="Script" uid="uid://claxjl5bwx5kg" path="res://scripts/components/StatsComponent.gd" id="3_10qa2"]
+[ext_resource type="Script" uid="uid://cmhl3i2b5iuqf" path="res://scripts/components/MiningComponent.gd" id="5_0pyb8"]
 [ext_resource type="Script" uid="uid://dblg70lo7213n" path="res://scripts/components/HurtBoxComponent.gd" id="5_jgi4d"]
 [ext_resource type="Script" uid="uid://cdjdv2lrn2w1j" path="res://scripts/limboai/GenericHSM.gd" id="6_j5nbp"]
 [ext_resource type="Script" uid="uid://chifrsevdmxr5" path="res://scripts/limboai/GenericState.gd" id="7_dv8ux"]
 
-[sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_7fi6v"]
+[sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_0pyb8"]
 _data = PackedByteArray("AAADAAUAAAABAAAAYAAAAEAAAAD8AgAAUklGRvQCAABXRUJQVlA4TOgCAAAvX8APEE9gFgCaJDKIIpokMhzIIPZPg0zAYq8QSjj17yMCIwGQcJVNzKHTOOAGB9ic/wDw/8sYjrE0JGLqvDoBXWnbo8iVFHRNym/X7yUcdeElnKa4A7rssH/gG0i9deyNki/gUJ7UvmQh/UJnDyP678BtJEVyDWjprg5eYf6bUhGRzdYomwKAszWKyLnrutFma+guAA7K5zh3WzhbQxc1T4d0AbrRZmuoe9R8VI10Hm22hr5jG4fkc8c6ztZQhR46ROFsDfU4NibQHMM62GyNzNMA0gvSNDgN7WDzNZS0zSms0MipvxsogXarkTG0RzTNQfHL/b4DKDqAn7YabFSP6yMrqrZxzp0WD7u1/jFhq6ECHr92zxVGWgAtlp+88YhqaOCno3OuGUxK+NETYfFBtUyz1CyiuPyYMAAY0r1iehJWXpfJBvXK9yRsFf5w4Xe3wpLu7t31en/bzxJBP9ePPmnHyzRf6B29e0KH1KegXjkCQu36q+qwht7X6/W2Tw6wvv1jltlW24NkqO7XB91l7jd1whAACBuT/lMy/1oYsx7CJ3mA8kIbssboPazRcjkACFPBUa9sDz3AReV5mYJMjx3+5GWZLl5RkSUKpXI9di3/Y1MRkS1DIeoUAFw2c/98OXddN5ZsFboQVmpss+tKNvFRbFqjC1CyVT6JaqRzgc9vtk8t3/1NchwrOPRdpPvuU4iy2+epGxHF38TQHMM62N1kbJtTWPlzfChNg9PQ7ndTtc1QNwh8Sk793X4mOGKodb/c77v9V0y0OAzW+LS3c+5UwEhzdM5tkgstgLbof4UBgKaCvBcpcs+fiKEtTJ+IbcHffL2SsJBR3N/2LJb2wwM7EFdffNq7dn3NsPsBzqGXJYGHse7nfuH9d25jraHcCYBXlGAAMqdkY2X2+3leJqrWxVutt6VlKjjNAluJZ703/Lz/RclWZGT5mQID4ic2RakWD5tUIEskYFsIoEwPsqYwRObvGAM=")
 size_override = Vector2(96, 64)
 
@@ -16,7 +17,7 @@ size_override = Vector2(96, 64)
 radius = 4.0
 
 [sub_resource type="Animation" id="Animation_6je5m"]
-length = 0.2
+length = 0.125
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -32,8 +33,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_0pyb8"]
-length = 0.8
-loop_mode = 1
+length = 0.375
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -41,7 +41,7 @@ tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = false
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4),
+"times": PackedFloat32Array(0, 0.125, 0.25),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [2, 3, 4]
@@ -66,9 +66,12 @@ script = ExtResource("2_0pyb8")
 [node name="StatsComponent" type="Node" parent="."]
 script = ExtResource("3_10qa2")
 
+[node name="MiningComponent" type="Node" parent="."]
+script = ExtResource("5_0pyb8")
+
 [node name="Sprite" type="Sprite2D" parent="."]
 texture_filter = 1
-texture = SubResource("PortableCompressedTexture2D_7fi6v")
+texture = SubResource("PortableCompressedTexture2D_0pyb8")
 hframes = 3
 vframes = 2
 frame = 1
@@ -90,7 +93,7 @@ metadata/_aseprite_wizard_config_ = {
 "source": "res://scenes/characters/Miny/Miny.aseprite",
 "source_uid": 6893159290547062567
 }
-metadata/_aseprite_wizard_source_file_hash_ = "0a3bd8fc5b8a336fe412de31afc8a06b"
+metadata/_aseprite_wizard_source_file_hash_ = "afb0d5e31848beeefb3db6217a1a5a1e"
 
 [node name="HurtBoxComponent" type="Area2D" parent="."]
 script = ExtResource("5_jgi4d")

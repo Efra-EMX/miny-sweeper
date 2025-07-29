@@ -10,7 +10,6 @@ var dragging: bool = false:
 		
 		if dragging:
 			following = false
-			
 
 func _ready() -> void:
 	position = get_center_point()
@@ -20,7 +19,6 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	if following:
 		global_position = lerp(global_position, get_center_point(), 0.2)
-		return
 
 func get_center_point() -> Vector2:
 	if target_list.has(null):

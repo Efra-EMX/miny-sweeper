@@ -16,10 +16,10 @@ func _ready() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	for input in move_actions:
 		if event.is_action_pressed(input):
-			if not movement_component.is_moving():
-				movement_component.step(Global.direction_vectors[input])
+			if parent_entity.actionable:
+				parent_entity.interact_with(parent_entity.coords + Global.direction_vectors[input])
 				return
-			CallableBuffer.add(movement_component.step.bind(Global.direction_vectors[input]), movement_component.is_moving, true)
+			CallableBuffer.add(parent_entity.interact_with.bind(parent_entity.coords + Global.direction_vectors[input]), parent_entity.get.bind("actionable"))
 
 func _get_configuration_warnings() -> PackedStringArray:
 	var warnings: PackedStringArray = PackedStringArray()

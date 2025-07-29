@@ -154,6 +154,16 @@ func is_tile_revealed(coords: Vector2i) -> bool:
 		return true
 	return false
 
+func reveal(coords: Vector2i) -> void:
+	#set_bomb(coords, false)
+	
+	for neighbor_coords in get_nearby_coords(coords):
+		if not is_tile_loaded(neighbor_coords):
+			generate_chunk(coords_to_chunk_coords(neighbor_coords))
+	
+	set_wall(coords, false)
+	update_label(coords)
+
 func chain_reveal(coords: Vector2i) -> void:
 	if is_tile_revealed(coords):
 		return
@@ -166,15 +176,15 @@ func chain_reveal(coords: Vector2i) -> void:
 	for neighbor_coords in get_nearby_coords(coords):
 		chain_reveal(neighbor_coords)
 
-func reveal(coords: Vector2i) -> void:
-	#set_bomb(coords, false)
+func break_tile(coords: Vector2i) -> void:
+	if is_tile_has_bomb(coords):
+		#spawn bomb and explode it
+		pass
+	else:
+		#spawn materials
+		pass
 	
-	for neighbor_coords in get_nearby_coords(coords):
-		if not is_tile_loaded(neighbor_coords):
-			generate_chunk(coords_to_chunk_coords(neighbor_coords))
-	
-	set_wall(coords, false)
-	update_label(coords)
+	chain_reveal(coords)
 
 func toggle_flag(coords: Vector2i) -> void:
 	if is_tile_revealed(coords):

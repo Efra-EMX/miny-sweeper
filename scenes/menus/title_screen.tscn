@@ -58,7 +58,7 @@ offset_top = -39.5
 offset_bottom = -8.5
 grow_horizontal = 2
 grow_vertical = 2
-text = "GAME TITLE"
+text = "MINY SWEEPER"
 label_settings = SubResource("LabelSettings_lioak")
 horizontal_alignment = 1
 
@@ -80,7 +80,7 @@ grow_vertical = 2
 layout_mode = 2
 text = "START"
 script = ExtResource("4_upb4n")
-target_scene = "res://scenes/stages/default_stage.tscn"
+target_scene = "uid://bg248w7ij17mf"
 
 [node name="Settings" type="Button" parent="Main Menu/Menus" node_paths=PackedStringArray("target_page")]
 layout_mode = 2
