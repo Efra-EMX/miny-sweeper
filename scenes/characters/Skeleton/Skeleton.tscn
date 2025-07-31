@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=4 uid="uid://b4lxoo3a7thov"]
+[gd_scene load_steps=6 format=4 uid="uid://b4lxoo3a7thov"]
 
 [ext_resource type="PackedScene" uid="uid://1lpdh8fl68u" path="res://scenes/characters/BaseEnemy.tscn" id="1_hp4l2"]
+[ext_resource type="Script" uid="uid://dvdmbpt0kgsuh" path="res://scenes/characters/Skeleton/SkeletonAct.gd" id="2_esupy"]
 
 [sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_hp4l2"]
 _data = PackedByteArray("AAADAAUAAAABAAAAQAAAACAAAAAQAQAAUklGRggBAABXRUJQVlA4TPwAAAAvP8AHEC9AEEASQCrL7I+wwxpkAhbrthL6C+FEmG00iL2mdf4sN/8B+H+imyRWcN1GkqXsiASm1YnQ13cRICJYbf65wO7w5jui/wzctm2k3p7E3S/afxgJIF5xpGzzFYf6GOOI5x3Zx33weYfGLd+gLzkO9Ocd2ecGX3B4Gi84jPtQPOtoAgzxAw5UQQBb0TTsZUoSKEtO9eFYoCY5IWqH+pVLks1WBduEBqsdKaodAhAuy6+TTJgs14ThXVNJE5SLFUVAvHBNts06b/Ye6XmHtKVi50xqmxyYvwNIgdWDQG+1Q4pk/SCBPLXXwoMc6ToDLku0hqgdAbQfGQ0=")
@@ -57,3 +58,6 @@ metadata/_aseprite_wizard_source_file_hash_ = "ce128af655cfdfeb7b1a5128588face9"
 libraries = {
 &"": SubResource("AnimationLibrary_m05i6")
 }
+
+[node name="act" parent="StateMachine" index="1"]
+script = ExtResource("2_esupy")

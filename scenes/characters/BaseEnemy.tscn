@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://1lpdh8fl68u"]
+[gd_scene load_steps=11 format=3 uid="uid://1lpdh8fl68u"]
 
 [ext_resource type="Script" uid="uid://bvfacx4epfw42" path="res://scripts/classes/Character.gd" id="1_6jwid"]
 [ext_resource type="Script" uid="uid://cghd6ryeteifh" path="res://scripts/components/MovementComponent.gd" id="2_cv20u"]
@@ -8,11 +8,12 @@
 [ext_resource type="Script" uid="uid://dblg70lo7213n" path="res://scripts/components/HurtBoxComponent.gd" id="6_xvs87"]
 [ext_resource type="Script" uid="uid://cdjdv2lrn2w1j" path="res://scripts/limboai/GenericHSM.gd" id="7_qfy7v"]
 [ext_resource type="Script" uid="uid://chifrsevdmxr5" path="res://scripts/limboai/GenericState.gd" id="8_4e7se"]
+[ext_resource type="Script" uid="uid://efym4s010cyy" path="res://scenes/characters/idleState.gd" id="8_cv20u"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jn14c"]
 radius = 4.0
 
-[node name="BasicCharacter" type="Node2D" groups=["character", "enemy", "entity"]]
+[node name="BasicEnemy" type="Node2D" groups=["character", "enemy", "entity"]]
 script = ExtResource("1_6jwid")
 
 [node name="MovementComponent" type="Node" parent="."]
@@ -38,21 +39,25 @@ debug_color = Color(0, 1, 0, 0.196078)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 
-[node name="StateMachine" type="LimboHSM" parent="."]
+[node name="StateMachine" type="LimboHSM" parent="." node_paths=PackedStringArray("target_agent")]
 script = ExtResource("7_qfy7v")
+target_agent = NodePath("..")
 anystate_transitions = {
 "down": NodePath("down"),
 "hurt": NodePath("hurt")
 }
 
-[node name="idle" type="LimboState" parent="StateMachine"]
-script = ExtResource("8_4e7se")
+[node name="idle" type="LimboState" parent="StateMachine" node_paths=PackedStringArray("animation_player")]
+script = ExtResource("8_cv20u")
 transitions = {
+&"act": NodePath("../act"),
 "attack": NodePath("../attack"),
-"move": NodePath("../move")
+"move": NodePath("../act")
 }
+animation_player = NodePath("../../AnimationPlayer")
+animation_name = &"Idle"
 
-[node name="move" type="LimboState" parent="StateMachine"]
+[node name="act" type="LimboState" parent="StateMachine"]
 script = ExtResource("8_4e7se")
 transitions = {
 "finished": NodePath("../idle")

@@ -1,0 +1,23 @@
+extends GenericState
+
+func _enter() -> void:
+	if Global.player == null:
+		dispatch(EVENT_FINISHED)
+		return
+	
+	agent.actionable = false
+	agent.busy = true
+	
+	var path: Array[Vector2i] = Navigation.get_grid_path(agent.coords, Global.player.coords)
+	
+	if path.size() > 1:
+		agent.movement_component.move(path[1])
+	else:
+		for coords in Global.terrain.base_tilemap.get_surrounding_cells(agent.coords):
+			var target_entity: Entity = Entity.get_entity_on_coords(coords)
+			if target_entity != null:
+				if target_entity == Global.player:
+					target_entity.take_hit(AttackData.new(1, agent))
+	super._enter()
+	
+	dispatch(EVENT_FINISHED)

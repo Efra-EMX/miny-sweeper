@@ -19,6 +19,7 @@ func _ready() -> void:
 	set_active.call_deferred(true)
 
 func start() -> void:
+	dispatch("Idle")
 	turn_counter = 0
 	dispatch("PlayerTurn")
 

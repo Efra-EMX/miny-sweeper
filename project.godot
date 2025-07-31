@@ -38,6 +38,7 @@ FocusManager="*res://autoloads/FocusManager.gd"
 Global="*res://autoloads/Global.gd"
 CallableBuffer="*res://autoloads/CallableBuffer.gd"
 TurnManager="*res://autoloads/TurnManager/TurnManager.tscn"
+Navigation="*res://autoloads/Navigation.gd"
 
 [display]
 

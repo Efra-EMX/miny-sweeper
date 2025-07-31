@@ -17,6 +17,7 @@ func move(target_coords:Vector2i) -> void:
 	
 	parent_entity.direction = target_coords - parent_entity.coords
 	if Global.terrain.is_tile_revealed(target_coords):
+		parent_entity.coords = target_coords
 		move_tween = Global.terrain.move_to(parent_entity, target_coords)
 	else:
 		move_tween = Global.terrain.bounce_to(parent_entity, target_coords)

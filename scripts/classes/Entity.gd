@@ -3,11 +3,12 @@ class_name Entity
 
 @onready var stats_component: StatsComponent = $StatsComponent
 
-var coords: Vector2i:
-	set(value):
-		global_position = Global.terrain.coords_to_position(value)
-	get():
-		return get_coords()
+var coords: Vector2i
+	#set(value):
+		#global_position = Global.terrain.coords_to_position(value)
+		
+	#get():
+		#return get_coords()
 		
 var direction: Vector2i:
 	set(value):
@@ -25,6 +26,10 @@ func _ready() -> void:
 	
 	if stats_component != null:
 		stats_component.killed.connect(on_killed)
+
+func set_coords(new_coords: Vector2i) -> void:
+	coords = new_coords
+	global_position = Global.terrain.coords_to_position(new_coords)
 
 func get_coords() -> Vector2i:
 	return Global.terrain.position_to_coords(global_position)

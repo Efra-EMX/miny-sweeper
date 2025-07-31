@@ -15,8 +15,6 @@ func _ready() -> void:
 	TurnManager.start.call_deferred()
 
 func _physics_process(delta: float) -> void:
-	print_debug(TurnManager.get_active_state())
-	
 	if not TurnManager.is_running():
 		return
 	
