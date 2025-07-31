@@ -20,6 +20,8 @@ class Buffer:
 		return Time.get_ticks_msec()-time_stamp > timeout
 		
 	func attempt_call() -> bool:
+		if condition.get_object() == null:
+			return false
 		if condition.call() != invert_condition:
 			action.call()
 			return true

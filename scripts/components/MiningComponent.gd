@@ -8,4 +8,4 @@ func mine(coords: Vector2i) -> void:
 	$"../AnimationPlayer".play("Mine")
 	await $"../AnimationPlayer".animation_finished
 	$"../AnimationPlayer".play("Idle")
-	Global.terrain.break_tile(coords)
+	await Global.terrain.break_tile(coords)

@@ -7,9 +7,9 @@ class_name StatsComponent
 		#parent = value
 		#update_configuration_warnings()
 
-@export var base_hp: int = 100
-@export var base_mp: int = 10
-@export var base_atk: int = 10
+@export var base_hp: int = 1
+@export var base_mp: int = 1
+@export var base_atk: int = 1
 
 @onready var parent: Node = get_parent()
 @onready var hp: int = base_hp:

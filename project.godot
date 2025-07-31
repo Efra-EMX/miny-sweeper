@@ -13,7 +13,7 @@ config_version=5
 config/name="Miny Sweeper"
 config/version="1.0.0"
 config/tags=PackedStringArray("2d")
-run/main_scene="res://scenes/menus/title_screen.tscn"
+run/main_scene="uid://bg248w7ij17mf"
 config/use_custom_user_dir=true
 config/project_settings_override="user://settings.cfg"
 config/features=PackedStringArray("4.4", "GL Compatibility")
@@ -37,6 +37,7 @@ DebugController="*res://scripts/debug/DebugController.gd"
 FocusManager="*res://autoloads/FocusManager.gd"
 Global="*res://autoloads/Global.gd"
 CallableBuffer="*res://autoloads/CallableBuffer.gd"
+TurnManager="*res://autoloads/TurnManager/TurnManager.tscn"
 
 [display]
 
@@ -215,6 +216,10 @@ pointing/emulate_touch_from_mouse=true
 
 behavior_tree/behavior_tree_default_dir="res://scripts/limboai/trees"
 behavior_tree/user_task_dir_1="res://scripts/limboai/tasks"
+
+[physics]
+
+common/physics_ticks_per_second=30
 
 [rendering]
 

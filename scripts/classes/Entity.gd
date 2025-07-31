@@ -1,6 +1,8 @@
 extends Node2D
 class_name Entity
 
+@onready var stats_component: StatsComponent = $StatsComponent
+
 var coords: Vector2i:
 	set(value):
 		global_position = Global.terrain.coords_to_position(value)
@@ -15,16 +17,25 @@ var direction: Vector2i:
 			return
 		
 		scale.x = direction.x
-var actionable: bool = true
+var actionable: bool = false
+var busy: bool = false
 
 func _ready() -> void:
-	coords = coords
+	coords = get_coords()
+	
+	if stats_component != null:
+		stats_component.killed.connect(on_killed)
 
 func get_coords() -> Vector2i:
 	return Global.terrain.position_to_coords(global_position)
 
 func take_hit(attack_data: AttackData) -> bool:
-	return false
+	if stats_component == null:
+		return false
+	return stats_component.take_hit(attack_data)
+
+func on_killed() -> void:
+	queue_free()
 
 func interact(from: Entity = null) -> void:
 	pass

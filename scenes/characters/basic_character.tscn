@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://dmumi8ref84wc"]
+[gd_scene load_steps=10 format=3 uid="uid://dmumi8ref84wc"]
 
 [ext_resource type="Script" uid="uid://bvfacx4epfw42" path="res://scripts/classes/Character.gd" id="1_3uolt"]
 [ext_resource type="Script" uid="uid://cghd6ryeteifh" path="res://scripts/components/MovementComponent.gd" id="3_7x62t"]
 [ext_resource type="Script" uid="uid://dblg70lo7213n" path="res://scripts/components/HurtBoxComponent.gd" id="3_xj3fk"]
 [ext_resource type="Script" uid="uid://claxjl5bwx5kg" path="res://scripts/components/StatsComponent.gd" id="4_58xif"]
 [ext_resource type="Texture2D" uid="uid://da0sf4n8mav6f" path="res://assets/shapes/square.png" id="5_4733v"]
+[ext_resource type="Script" uid="uid://b84n6f8b4w5sm" path="res://scripts/misc/Flasher.gd" id="5_k80lu"]
 [ext_resource type="Script" uid="uid://cdjdv2lrn2w1j" path="res://scripts/limboai/GenericHSM.gd" id="7_kfmit"]
 [ext_resource type="Script" uid="uid://chifrsevdmxr5" path="res://scripts/limboai/GenericState.gd" id="8_b8drn"]
 
@@ -17,12 +18,16 @@ script = ExtResource("1_3uolt")
 [node name="MovementComponent" type="Node" parent="."]
 script = ExtResource("3_7x62t")
 
-[node name="StatsComponent" type="Node" parent="."]
+[node name="StatsComponent" type="Node" parent="." groups=["character", "entity"]]
 script = ExtResource("4_58xif")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 position = Vector2(2.38419e-07, 2.38419e-07)
 texture = ExtResource("5_4733v")
+
+[node name="Flasher" type="Node" parent="Sprite"]
+script = ExtResource("5_k80lu")
+metadata/_custom_type_script = "uid://b84n6f8b4w5sm"
 
 [node name="HurtBoxComponent" type="Area2D" parent="."]
 script = ExtResource("3_xj3fk")
@@ -66,3 +71,5 @@ transitions = {
 [node name="down" type="LimboState" parent="StateMachine"]
 script = ExtResource("8_b8drn")
 transitions = {}
+
+[connection signal="damage_taken" from="StatsComponent" to="Sprite/Flasher" method="flash" unbinds=1]

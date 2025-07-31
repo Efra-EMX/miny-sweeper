@@ -1,21 +1,23 @@
 extends Entity
 class_name Character
 
-@onready var stats_component: StatsComponent = $StatsComponent
 @onready var movement_component: MovementComponent = $MovementComponent
-@onready var mining_component: Node = $MiningComponent
+@onready var mining_component: MiningComponent = $MiningComponent
 @onready var state_machine: GenericHSM = $StateMachine
 
-func take_hit(attack_data: AttackData) -> bool:
-	if !stats_component:
-		return false
-	return stats_component.take_hit(attack_data)
+func _ready() -> void:
+	if is_in_group("player"):
+		TurnManager.player_turn.connect(set.bind("actionable", true))
+	elif is_in_group("enemy"):
+		TurnManager.enemy_turn.connect(set.bind("actionable", true))
+	super._ready()
 
 func interact_with(coords: Vector2i) -> void:
-	#if not actionable:
-		#return
+	if not actionable:
+		return
 	
 	actionable = false
+	busy = true
 	
 	if Global.terrain.is_tile_revealed(coords):
 		var target_entity: Entity = get_entity_on_coords(coords)
@@ -28,4 +30,4 @@ func interact_with(coords: Vector2i) -> void:
 	
 	await super.interact_with(coords)
 	
-	actionable = true
+	busy = false

@@ -31,6 +31,7 @@ func generate_chunk(chunk_coords: Vector2i, empty_tiles: Array[Vector2i] = []) -
 	for coords:Vector2i in get_coords_in_chunk(chunk_coords):
 		#set_bomb(coords, bomb_array[coords.x + (coords.y * chunk_size.x)])
 		set_wall(coords, true)
+		floor_tilemap.set_cell(coords, 0, Vector2i(1,0))
 	
 	var bomb_array: Array[bool]
 	bomb_array.resize(bomb_count)
@@ -93,7 +94,6 @@ func set_wall(coords: Vector2i, value: bool) -> void:
 		wall_tilemap.set_cell(coords, 0, Vector2i(0,1))
 		return
 	wall_tilemap.set_cell(coords)
-	floor_tilemap.set_cell(coords, 0, Vector2i(1,0))
 	
 #func update_bombs_batch() -> void:
 	#for coords:Vector2i in all_coords:
@@ -161,6 +161,14 @@ func reveal(coords: Vector2i) -> void:
 		if not is_tile_loaded(neighbor_coords):
 			generate_chunk(coords_to_chunk_coords(neighbor_coords))
 	
+	if not (is_tile_has_bomb_nearby(coords) or is_tile_has_bomb(coords)):
+		var chance: int = randi_range(1, 10)
+		if chance <= 1:
+			var new_enemy: Character = preload("uid://b4lxoo3a7thov").instantiate()
+			new_enemy.position = coords_to_position(coords)
+			Global.stage.add_child(new_enemy)
+			#new_enemy.interact()
+	
 	set_wall(coords, false)
 	update_label(coords)
 
@@ -169,6 +177,8 @@ func chain_reveal(coords: Vector2i) -> void:
 		return
 	
 	reveal(coords)
+	#await get_tree().create_timer(0.1).timeout
+	#await get_tree().physics_frame
 	
 	if is_tile_has_bomb_nearby(coords) or is_tile_has_bomb(coords):
 		return
@@ -186,7 +196,7 @@ func break_tile(coords: Vector2i) -> void:
 		pass
 	else:
 		#spawn materials
-		chain_reveal(coords)
+		await chain_reveal(coords)
 
 func toggle_flag(coords: Vector2i) -> void:
 	if is_tile_revealed(coords):
@@ -212,24 +222,3 @@ func bounce_to(node: Node2D, coords: Vector2i, time = 0.2) -> Tween:
 	tween.tween_property(node, "global_position", original_position, time/2).set_ease(Tween.EASE_IN)
 	
 	return tween
-
-func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventMouseButton:
-		if event.pressed:
-			return
-		
-		var mouse_position: Vector2 = get_viewport().get_camera_2d().get_global_mouse_position()
-		var coords: Vector2i = base_tilemap.local_to_map(base_tilemap.to_local(mouse_position))
-		
-		if event.button_index == MOUSE_BUTTON_LEFT:
-			if not is_tile_loaded(coords):
-				if started:
-					generate_chunk(coords_to_chunk_coords(coords))
-				else:
-					var empty_tiles: Array[Vector2i] = [coords]
-					empty_tiles.append_array(get_nearby_coords(coords))
-					
-					generate_chunk(coords_to_chunk_coords(coords), empty_tiles)
-			chain_reveal(coords)
-		if event.button_index == MOUSE_BUTTON_RIGHT:
-			toggle_flag(coords)

@@ -72,9 +72,33 @@ func _unhandled_input(event: InputEvent) -> void:
 		if event.button_index == MOUSE_BUTTON_MIDDLE:
 			dragging = event.pressed
 			return
-		if event.button_index == MOUSE_BUTTON_WHEEL_UP and event.pressed:
+		
+		if event.pressed:
+			return
+			
+		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
 			zoom += Vector2(0.1 ,0.1)
-		if event.button_index == MOUSE_BUTTON_WHEEL_DOWN and event.pressed:
+			return
+		
+		if event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
 			zoom -= Vector2(0.1 ,0.1)
+			return
+		
+		var mouse_position: Vector2 = get_viewport().get_camera_2d().get_global_mouse_position()
+		var coords: Vector2i = Global.terrain.base_tilemap.local_to_map(Global.terrain.base_tilemap.to_local(mouse_position))
+		
+		#if event.button_index == MOUSE_BUTTON_LEFT:
+			#if not Global.terrain.is_tile_loaded(coords):
+				#if Global.terrain.started:
+					#Global.terrain.generate_chunk(Global.terrain.coords_to_chunk_coords(coords))
+				#else:
+					#var empty_tiles: Array[Vector2i] = [coords]
+					#empty_tiles.append_array(Global.terrain.get_nearby_coords(coords))
+					#
+					#Global.terrain.generate_chunk(Global.terrain.coords_to_chunk_coords(coords), empty_tiles)
+			#Global.terrain.break_tile(coords)
+		if event.button_index == MOUSE_BUTTON_RIGHT:
+			Global.terrain.toggle_flag(coords)
+		return
 	if event is InputEventMouseMotion and dragging:
 		position = position - (event.relative / zoom)

@@ -20,6 +20,7 @@ func _unhandled_input(event: InputEvent) -> void:
 				parent_entity.interact_with(parent_entity.coords + Global.direction_vectors[input])
 				return
 			CallableBuffer.add(parent_entity.interact_with.bind(parent_entity.coords + Global.direction_vectors[input]), parent_entity.get.bind("actionable"))
+	
 
 func _get_configuration_warnings() -> PackedStringArray:
 	var warnings: PackedStringArray = PackedStringArray()

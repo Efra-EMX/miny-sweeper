@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://bqjo2ic2gx0f7"]
+
+[ext_resource type="Script" uid="uid://7pgtqqgdlanu" path="res://autoloads/TurnManager/TurnManager.gd" id="1_5d5wx"]
+[ext_resource type="Script" uid="uid://chifrsevdmxr5" path="res://scripts/limboai/GenericState.gd" id="2_4wo4c"]
+[ext_resource type="Script" uid="uid://dg4orywsqdl4c" path="res://autoloads/TurnManager/PlayerTurn.gd" id="3_4h5bk"]
+[ext_resource type="Script" uid="uid://doymmprxd63bw" path="res://autoloads/TurnManager/EnemyTurn.gd" id="4_jeuyi"]
+
+[node name="TurnManager" type="LimboHSM"]
+script = ExtResource("1_5d5wx")
+anystate_transitions = {
+&"EnemyTurn": NodePath("EnemyTurn"),
+&"Idle": NodePath("Idle"),
+&"PlayerTurn": NodePath("PlayerTurn")
+}
+
+[node name="Idle" type="LimboState" parent="."]
+script = ExtResource("2_4wo4c")
+metadata/_custom_type_script = "uid://chifrsevdmxr5"
+
+[node name="PlayerTurn" type="LimboState" parent="."]
+script = ExtResource("3_4h5bk")
+transitions = {
+&"finished": NodePath("../EnemyTurn")
+}
+
+[node name="EnemyTurn" type="LimboState" parent="."]
+script = ExtResource("4_jeuyi")
+transitions = {
+&"finished": NodePath("../PlayerTurn")
+}

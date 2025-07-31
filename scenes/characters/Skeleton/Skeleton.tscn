@@ -1,0 +1,59 @@
+[gd_scene load_steps=5 format=4 uid="uid://b4lxoo3a7thov"]
+
+[ext_resource type="PackedScene" uid="uid://1lpdh8fl68u" path="res://scenes/characters/BaseEnemy.tscn" id="1_hp4l2"]
+
+[sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_hp4l2"]
+_data = PackedByteArray("AAADAAUAAAABAAAAQAAAACAAAAAQAQAAUklGRggBAABXRUJQVlA4TPwAAAAvP8AHEC9AEEASQCrL7I+wwxpkAhbrthL6C+FEmG00iL2mdf4sN/8B+H+imyRWcN1GkqXsiASm1YnQ13cRICJYbf65wO7w5jui/wzctm2k3p7E3S/afxgJIF5xpGzzFYf6GOOI5x3Zx33weYfGLd+gLzkO9Ocd2ecGX3B4Gi84jPtQPOtoAgzxAw5UQQBb0TTsZUoSKEtO9eFYoCY5IWqH+pVLks1WBduEBqsdKaodAhAuy6+TTJgs14ThXVNJE5SLFUVAvHBNts06b/Ye6XmHtKVi50xqmxyYvwNIgdWDQG+1Q4pk/SCBPLXXwoMc6ToDLku0hqgdAbQfGQ0=")
+size_override = Vector2(64, 32)
+
+[sub_resource type="Animation" id="Animation_esupy"]
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_m05i6"]
+_data = {
+&"Idle": SubResource("Animation_esupy")
+}
+
+[node name="BasicCharacter" instance=ExtResource("1_hp4l2")]
+
+[node name="Sprite" parent="." index="2"]
+texture_filter = 1
+texture = SubResource("PortableCompressedTexture2D_hp4l2")
+hframes = 2
+metadata/_aseprite_wizard_interface_config_ = {
+"pending_changes": {}
+}
+metadata/_aseprite_wizard_config_ = {
+"embed_tex": true,
+"i_mode": 0,
+"keep_anim_length": false,
+"layers": [],
+"o_ex_p": "",
+"o_folder": "",
+"o_name": "",
+"only_visible": false,
+"player": "AnimationPlayer",
+"scale": "1.0",
+"slice": "",
+"source": "res://scenes/characters/Skeleton/Skeleton.aseprite",
+"source_uid": 7355296129689921247
+}
+metadata/_aseprite_wizard_source_file_hash_ = "ce128af655cfdfeb7b1a5128588face9"
+
+[node name="AnimationPlayer" parent="." index="4"]
+libraries = {
+&"": SubResource("AnimationLibrary_m05i6")
+}
