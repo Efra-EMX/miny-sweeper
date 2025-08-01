@@ -3,12 +3,12 @@
 [ext_resource type="PackedScene" uid="uid://1lpdh8fl68u" path="res://scenes/characters/BaseEnemy.tscn" id="1_hp4l2"]
 [ext_resource type="Script" uid="uid://dvdmbpt0kgsuh" path="res://scenes/characters/Skeleton/SkeletonAct.gd" id="2_esupy"]
 
-[sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_hp4l2"]
-_data = PackedByteArray("AAADAAUAAAABAAAAQAAAACAAAAAQAQAAUklGRggBAABXRUJQVlA4TPwAAAAvP8AHEC9AEEASQCrL7I+wwxpkAhbrthL6C+FEmG00iL2mdf4sN/8B+H+imyRWcN1GkqXsiASm1YnQ13cRICJYbf65wO7w5jui/wzctm2k3p7E3S/afxgJIF5xpGzzFYf6GOOI5x3Zx33weYfGLd+gLzkO9Ocd2ecGX3B4Gi84jPtQPOtoAgzxAw5UQQBb0TTsZUoSKEtO9eFYoCY5IWqH+pVLks1WBduEBqsdKaodAhAuy6+TTJgs14ThXVNJE5SLFUVAvHBNts06b/Ye6XmHtKVi50xqmxyYvwNIgdWDQG+1Q4pk/SCBPLXXwoMc6ToDLku0hqgdAbQfGQ0=")
-size_override = Vector2(64, 32)
+[sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_esupy"]
+_data = PackedByteArray("AAADAAUAAAABAAAAQAAAAEAAAAB0AQAAUklGRmwBAABXRUJQVlA4TF8BAAAvP8APEC9AEEASQCrL7I+wwxpkAhbrthL6C+FEmG00iL2mdf4sN/8B+H+imyRWgB1Jct3mUE4AW5uIVytG4HIEKOSfC0kBd37+RvSfgdu2jZR1+4T2F/E3RAfQSiXbrHhqzDmPlvfsY17BvKfmiU+RreeaA+NoWc8+7kzuPJf4Ftx7vmIAgNKeIcAQ1faeO2oeEMBI00ngIu0ZMkm3WHtukDb7nPOUFh6iZIuracLkQlPEep1pgvKrh0QTFrnwtG0uAAlKiwdF2tLixPAZ8GLdBQpcPIJOWw3LD7VOxsoDFBg7ah5u3SWPjgi0hMd/Gh1AK5Vss4LGnPNohTnmFSzMeeJzlDgw8vRxZ7KAb1HAAAAVLgOG+AWgwC1spG/wxphu6WGS1vhk/tQ2ocn0CQEIH+mtE0wYfioLRUD8YAU/7GfrTvJO6iExApEM0A+wRT4kkG9RA0UMuERHA+KXRgAA")
+size_override = Vector2(64, 64)
 
 [sub_resource type="Animation" id="Animation_esupy"]
-length = 0.4
+length = 0.8
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -17,10 +17,10 @@ tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = false
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [0]
+"values": [0, 1]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_m05i6"]
@@ -32,8 +32,9 @@ _data = {
 
 [node name="Sprite" parent="." index="2"]
 texture_filter = 1
-texture = SubResource("PortableCompressedTexture2D_hp4l2")
+texture = SubResource("PortableCompressedTexture2D_esupy")
 hframes = 2
+vframes = 2
 metadata/_aseprite_wizard_interface_config_ = {
 "pending_changes": {}
 }
@@ -52,11 +53,20 @@ metadata/_aseprite_wizard_config_ = {
 "source": "res://scenes/characters/Skeleton/Skeleton.aseprite",
 "source_uid": 7355296129689921247
 }
-metadata/_aseprite_wizard_source_file_hash_ = "ce128af655cfdfeb7b1a5128588face9"
+metadata/_aseprite_wizard_source_file_hash_ = "c9c31b2617bf1cf38aa451e29edd611f"
 
 [node name="AnimationPlayer" parent="." index="4"]
 libraries = {
 &"": SubResource("AnimationLibrary_m05i6")
+}
+autoplay = "Idle"
+
+[node name="StateMachine" parent="." index="5"]
+anystate_transitions = {
+"down": NodePath("down"),
+"hurt": NodePath("hurt"),
+&"idle": NodePath("idle"),
+&"stun": NodePath("stun")
 }
 
 [node name="act" parent="StateMachine" index="1"]

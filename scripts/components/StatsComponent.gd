@@ -14,12 +14,13 @@ class_name StatsComponent
 @onready var parent: Node = get_parent()
 @onready var hp: int = base_hp:
 	set(value):
-		hp = clampi(value, 0, base_hp)
+		hp = maxi(value, 0)
 		if !is_alive():
 			killed.emit()
 @onready var mp: int = base_mp:
 	set(value):
-		hp = clampi(value, 0, base_mp)
+		#mp = clampi(value, 0, base_mp)
+		mp = maxi(value, 0)
 @onready var atk: int = base_atk
 
 signal hit_taken(attack_data: AttackData)

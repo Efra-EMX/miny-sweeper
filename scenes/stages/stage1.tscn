@@ -1,10 +1,14 @@
-[gd_scene load_steps=8 format=3 uid="uid://bg248w7ij17mf"]
+[gd_scene load_steps=12 format=3 uid="uid://bg248w7ij17mf"]
 
 [ext_resource type="PackedScene" uid="uid://y4ut4m7cynpc" path="res://scenes/menus/pause screen/pause_screen.tscn" id="1_0uo0i"]
 [ext_resource type="Script" uid="uid://cefahidwlnnog" path="res://scenes/stages/Stage.gd" id="1_h25yc"]
 [ext_resource type="PackedScene" uid="uid://fuvut23w11wf" path="res://scenes/terrain/Terrain.tscn" id="3_ds8dt"]
+[ext_resource type="Texture2D" uid="uid://deakigadd1vxs" path="res://assets/ui/heart.png" id="3_y7b51"]
 [ext_resource type="PackedScene" uid="uid://df3tcht6mf01n" path="res://scenes/characters/Miny/Miny.tscn" id="4_h25yc"]
 [ext_resource type="Script" uid="uid://duxi1rgg5tuq" path="res://scripts/classes/Camera.gd" id="4_oiu06"]
+[ext_resource type="Script" uid="uid://cxvbmhkgsdkj2" path="res://scenes/gui/StatsDisplayTile.gd" id="4_rsk2y"]
+[ext_resource type="Texture2D" uid="uid://c0jtulky1mmm4" path="res://scenes/objects/bomb.png" id="5_rsk2y"]
+[ext_resource type="PackedScene" uid="uid://bxbuvvlr3cw8y" path="res://scenes/menus/title_screen.tscn" id="6_8qn6h"]
 [ext_resource type="Texture2D" uid="uid://brcu3fw8afexb" path="res://assets/shapes/highlight.png" id="6_i5f5j"]
 [ext_resource type="Script" uid="uid://d1nejr8h0ohvi" path="res://scripts/classes/TileHighlight.gd" id="7_i5f5j"]
 
@@ -15,6 +19,44 @@ script = ExtResource("1_h25yc")
 layer = 100
 
 [node name="Pause Screen" parent="UI" instance=ExtResource("1_0uo0i")]
+visible = false
+mouse_filter = 1
+
+[node name="GUI" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="HP Display" type="TextureRect" parent="UI/GUI"]
+clip_contents = true
+layout_mode = 0
+offset_right = 60.0
+offset_bottom = 12.0
+texture = ExtResource("3_y7b51")
+stretch_mode = 1
+script = ExtResource("4_rsk2y")
+stats_name = &"hp"
+
+[node name="MP Display" type="TextureRect" parent="UI/GUI"]
+clip_contents = true
+layout_mode = 0
+offset_top = 18.0
+offset_right = 66.0
+offset_bottom = 34.0
+texture = ExtResource("5_rsk2y")
+stretch_mode = 1
+script = ExtResource("4_rsk2y")
+stats_name = &"mp"
+
+[node name="Title Screen" parent="UI" instance=ExtResource("6_8qn6h")]
+
+[node name="Start" parent="UI/Title Screen/Main Menu/Menus" index="0" node_paths=PackedStringArray("node")]
+node = NodePath("../../../../..")
+method_name = "start_game"
 
 [node name="Terrain" parent="." instance=ExtResource("3_ds8dt")]
 
@@ -37,3 +79,5 @@ follow_viewport_enabled = true
 modulate = Color(1, 1, 1, 0.392157)
 texture = ExtResource("6_i5f5j")
 script = ExtResource("7_i5f5j")
+
+[editable path="UI/Title Screen"]

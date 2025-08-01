@@ -162,7 +162,7 @@ func reveal(coords: Vector2i) -> void:
 			generate_chunk(coords_to_chunk_coords(neighbor_coords))
 	
 	if not (is_tile_has_bomb_nearby(coords) or is_tile_has_bomb(coords)):
-		var chance: int = randi_range(1, 10)
+		var chance: int = randi_range(1, 16)
 		if chance <= 1:
 			var new_enemy: Character = preload("uid://b4lxoo3a7thov").instantiate()
 			new_enemy.position = coords_to_position(coords)
@@ -205,6 +205,11 @@ func toggle_flag(coords: Vector2i) -> void:
 		label_tilemap.set_cell(coords, 1, Vector2i(2,0))
 		return
 	label_tilemap.set_cell(coords)
+
+func is_tile_flagged(coords: Vector2i) -> bool:
+	if label_tilemap.get_cell_source_id(coords) == 1 and label_tilemap.get_cell_atlas_coords(coords) == Vector2i(2,0):
+		return true
+	return false
 
 func move_to(node: Node2D, coords: Vector2i, time = 0.2) -> Tween:
 	var tween: Tween = node.create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)

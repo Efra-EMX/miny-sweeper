@@ -8,8 +8,8 @@ func _ready() -> void:
 	if is_in_group("player"):
 		TurnManager.player_turn.connect(set.bind("actionable", true))
 	elif is_in_group("enemy"):
-		#TurnManager.enemy_turn.connect(set.bind("actionable", true))
-		TurnManager.enemy_turn.connect(state_machine.dispatch.bind("act"))
+		TurnManager.enemy_turn.connect(set.bind("actionable", true))
+		#TurnManager.enemy_turn.connect(state_machine.dispatch.bind("act"))
 	super._ready()
 
 func interact_with(coords: Vector2i) -> void:

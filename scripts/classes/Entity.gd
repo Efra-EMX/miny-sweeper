@@ -3,13 +3,17 @@ class_name Entity
 
 @onready var stats_component: StatsComponent = $StatsComponent
 
-var coords: Vector2i
-	#set(value):
+var coords: Vector2i:
+	set(value):
+		if coords == value:
+			return
+		last_coords = coords
+		coords = value
 		#global_position = Global.terrain.coords_to_position(value)
-		
 	#get():
 		#return get_coords()
-		
+var last_coords: Vector2i
+
 var direction: Vector2i:
 	set(value):
 		direction = value

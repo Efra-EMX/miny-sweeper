@@ -1,9 +1,17 @@
 extends GenericState
 
+#var base_cooldown: int = 1
+#var cooldown: int = 1
+
 func _enter() -> void:
 	if Global.player == null:
 		dispatch(EVENT_FINISHED)
 		return
+	
+	#if cooldown > 0:
+		#cooldown -= 1
+		#dispatch(EVENT_FINISHED)
+		#return
 	
 	agent.actionable = false
 	agent.busy = true
@@ -20,4 +28,5 @@ func _enter() -> void:
 					target_entity.take_hit(AttackData.new(1, agent))
 	super._enter()
 	
+	#cooldown = base_cooldowna
 	dispatch(EVENT_FINISHED)

@@ -8,12 +8,15 @@ func _ready() -> void:
 
 func _input(event) -> void:
 	if event.is_action_pressed("pause"):
-		AudioManager.play("confirm")
 		pause()
 
 func pause() -> void:
+	if TurnManager.get_active_state().name == "Idle":
+		return
+		
 	get_tree().paused = !get_tree().paused
 	visible = get_tree().paused
+	AudioManager.play("confirm")
 	print_debug("Pause status = ", get_tree().paused)
 	if get_tree().paused:
 		previous_page = Page.current_page

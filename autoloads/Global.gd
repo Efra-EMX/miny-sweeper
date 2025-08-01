@@ -14,3 +14,5 @@ const direction_vectors: Dictionary[StringName, Vector2i] = {
 var terrain: Terrain
 var player: Character
 var stage: Stage
+var camera: Camera
+var game_running: bool = false

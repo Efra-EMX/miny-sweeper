@@ -17,8 +17,23 @@ func _enter() -> void:
 		if target_entity == null:
 			#await agent.movement_component.move(target_coords)
 			agent.movement_component.move(target_coords)
+		elif target_entity is Character:
+			%AnimationPlayer.play("Mine")
+			await %AnimationPlayer.animation_finished
+			target_entity.state_machine.dispatch("stun")
 		else:
 			await target_entity.interact(agent)
+	elif Global.terrain.is_tile_flagged(target_coords):
+		%AnimationPlayer.play("Mine")
+		await %AnimationPlayer.animation_finished
+		if Global.terrain.is_tile_has_bomb(target_coords):
+			await Global.terrain.reveal(target_coords)
+			agent.stats_component.mp += 1
+		else:
+			await Global.terrain.reveal(target_coords)
+			agent.busy = false
+			print_debug(agent.state_machine.dispatch("stun"))
+			return
 	else:
 		%AnimationPlayer.play("Mine")
 		await %AnimationPlayer.animation_finished

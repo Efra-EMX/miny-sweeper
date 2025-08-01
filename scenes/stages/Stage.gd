@@ -7,11 +7,29 @@ func _enter_tree() -> void:
 	Global.player = $Miny
 
 func _ready() -> void:
+	if Global.game_running:
+		Global.game_running = false
+		TurnManager.stop()
+		
 	var empty_tiles: Array[Vector2i] = [Global.player.coords]
 	empty_tiles.append_array(Global.terrain.get_nearby_coords(Global.player.coords))
 	
 	Global.terrain.generate_chunk(Global.terrain.coords_to_chunk_coords(Global.player.coords), empty_tiles)
 	Global.terrain.chain_reveal(Global.player.coords)
+	
+	Global.camera.offset.x = - get_viewport_rect().size.x / 4
+	$UI/GUI.hide()
+	$TileHighlight.hide()
+	$TopLabel/TileHighlight.hide()
+
+func start_game() -> void:
+	$"UI/Title Screen".hide()
+	#Global.camera.offset.x = 0
+	create_tween().tween_property(Global.camera, "offset", Vector2.ZERO, 0.5).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO)
+	Global.game_running = true
+	$UI/GUI.show()
+	$TileHighlight.show()
+	$TopLabel/TileHighlight.show()
 	TurnManager.start.call_deferred()
 
 func _physics_process(delta: float) -> void:

@@ -14,15 +14,36 @@ func _ready() -> void:
 	parent_entity = get_parent()
 
 func _unhandled_input(event: InputEvent) -> void:
+	if not parent_entity.actionable:
+		return
+	
 	for input in move_actions:
 		if event.is_action_pressed(input):
-			if parent_entity.actionable:
-				#parent_entity.interact_with(parent_entity.coords + Global.direction_vectors[input])
-				parent_entity.direction = Global.direction_vectors[input]
-				parent_entity.state_machine.dispatch("act")
-				return
+			#parent_entity.interact_with(parent_entity.coords + Global.direction_vectors[input])
+			parent_entity.direction = Global.direction_vectors[input]
+			parent_entity.state_machine.dispatch("act")
+			return
 			#CallableBuffer.add(parent_entity.interact_with.bind(parent_entity.coords + Global.direction_vectors[input]), parent_entity.get.bind("actionable"))
-
+	
+	if event is InputEventMouseButton:
+		if event.pressed:
+			return
+		
+		if event.button_index == MOUSE_BUTTON_LEFT and parent_entity.stats_component.mp > 0:
+			var mouse_position: Vector2 = get_viewport().get_camera_2d().get_global_mouse_position()
+			var coords: Vector2i = Global.terrain.base_tilemap.local_to_map(Global.terrain.base_tilemap.to_local(mouse_position))
+			
+			if not Global.terrain.is_tile_revealed(coords):
+				return
+			
+			var new_bomb: Entity = preload("uid://b3wjebir88nf8").instantiate()
+			new_bomb.position = Global.terrain.coords_to_position(coords)
+			Global.stage.add_child(new_bomb)
+			new_bomb.interact()
+			
+			parent_entity.actionable = false
+			parent_entity.stats_component.mp -= 1
+	
 
 func _get_configuration_warnings() -> PackedStringArray:
 	var warnings: PackedStringArray = PackedStringArray()

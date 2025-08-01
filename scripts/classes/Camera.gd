@@ -12,9 +12,11 @@ var dragging: bool = false:
 			following = false
 
 func _ready() -> void:
+	Global.camera = self
 	position = get_center_point()
 	await get_tree().process_frame
 	Global.player.movement_component.moving.connect(on_target_moved)
+	Global.player.stats_component.damage_taken.connect(shake.unbind(1))
 
 func _process(_delta: float) -> void:
 	if following:

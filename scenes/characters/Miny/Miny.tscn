@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=4 uid="uid://df3tcht6mf01n"]
+[gd_scene load_steps=17 format=4 uid="uid://df3tcht6mf01n"]
 
 [ext_resource type="Script" uid="uid://bvfacx4epfw42" path="res://scripts/classes/Character.gd" id="1_0pyb8"]
 [ext_resource type="Script" uid="uid://crjb8dtxys62l" path="res://scripts/controllers/PlayerController.gd" id="1_6je5m"]
@@ -8,11 +8,12 @@
 [ext_resource type="Script" uid="uid://b84n6f8b4w5sm" path="res://scripts/misc/Flasher.gd" id="6_10qa2"]
 [ext_resource type="Script" uid="uid://cdjdv2lrn2w1j" path="res://scripts/limboai/GenericHSM.gd" id="6_j5nbp"]
 [ext_resource type="Script" uid="uid://chifrsevdmxr5" path="res://scripts/limboai/GenericState.gd" id="7_dv8ux"]
-[ext_resource type="Script" uid="uid://efym4s010cyy" path="res://scenes/characters/idleState.gd" id="9_ytujr"]
+[ext_resource type="Script" uid="uid://efym4s010cyy" path="res://scenes/characters/Miny/MinyIdle.gd" id="9_ytujr"]
 [ext_resource type="Script" uid="uid://bbb7t4coiy8r2" path="res://scenes/characters/Miny/MinyAct.gd" id="10_jgi4d"]
+[ext_resource type="Script" uid="uid://cymbxuw6yqq4" path="res://scenes/characters/stun.gd" id="11_jgi4d"]
 
-[sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_10qa2"]
-_data = PackedByteArray("AAADAAUAAAABAAAAYAAAAEAAAAAeAwAAUklGRhYDAABXRUJQVlA4TAoDAAAvX8APEE9gFgCaJDKIIpokMhzIIPZPg0zAYq8QSjj17yMCIwGQcJVNzKHTOOAGB9ic/wDw/8sYjrE0JGLqvDqBHGfb47ghi4Fb/jb+LKU5UJbSI+gGGiTl/JI+S62XpF4F5gAR4jY5MkX+VPaUEf2H4LaRI4m10717URNeYf5N44jI/tRDAPDP7JZj27aDLXbrTgB2StaxXYfL3aokJH9JGyGGFbvVPQkZVAMdB1vuVnesLbvsNFItl7p1MUuHZNgUu7XPqSGDeh/X3ppStwbJ5N+Qusahb6Jydz5NfYgrNHLornoyhW5d3+xR1zvFN//9CqBit+ai2rPCNbX3/jAH2GJ3Brh46Z8qjDQAGsxfeWM3wrj33te9yQmfPxKWwNu6T59H9AD6fHdMj+LKyzzaUncq7E58cyks+e5v3r69vuwmGe2m7nmcTnRDN49ol3sTVQtHpe7UbqnOY9nbyy77gOX1l0km62AL3bnT1K2qjCEAEI4B27phzLKLJQ9Q/tCKrDHbupNf2QGIh4KB9Sh2qwOcVIGT/1XsKPqxhYGSeTwFhSNLFKNKHZuW/8ZxRGR/ZpkTAFxCcYzZWibHtm2HwkYAYM3GMnds19E3h6xkW5m0EQqbhGSsKZYpBjqqXMjGmC1l7phSP757tZ61fApnplSWQTKa0CbaT8EUyjKo93HtrbKP7YBkwtmmMqlrHPpGJUNTH+LK7870shwaOXRXmjPX1H1VIwo5rcwhjN/89yv1vkd79JVOK5PPI7z3B8U7kywevTUh79bKJKAB0KiM1Hvv/Sr7hlbm5nGSikX051DQA9A4yK1Iplr4moSt7prfEENbmGKHTaGbqvM3hcd8eUvCQkZxfdmxWEpOkVD57m0BHtiD2L0PeXdMqxjrWzJUdctDCeA9OpkzeBiqburmLE6Up1brgF8qKD8JgBfoYHUMQKZI7ZIpKLgk8DySW+Zg1S6aR6t2qRxYYJ0E1rsRJrt1MWQdGZm/6uctYeT8PMgSmeK4OcCqXYLCo2Q2AKjQQdb84BCZ32EM")
+[sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_ytujr"]
+_data = PackedByteArray("AAADAAUAAAABAAAAYAAAAEAAAABEAwAAUklGRjwDAABXRUJQVlA4TDADAAAvX8APEE9gFgCaJDKIIpokMhzIIPZPg0zAYq8QSjj17yMCIwGQcJVNzKHTOOAGB9ic/wDw/8sYjrE0JGLqvDoBHdm248jRh5FRLn4pvgazkEENZiWDO2BGt5mf5CvS1Wj3xIAW0AyVKy0ZBD40S2ZE/yG4beRIYu10Xz5N2E/Qr2k8M7uveigA+Zrdeu77fnLVbtsFwMHIOvf7SL3blIWUL+0TpLBqt7lnIZNp4vPk6t3mjr3lUJxGrpdaty1l2ZCNULXb+jw3FdAe0zo6qnVbkE35DW1bnMYuqXeX07WntMKip+F2ZKp1szOM3RFtezB8DJ9uAa51Q1zpQXMUg+/aEMJpjXCV7jhLDnjwIjwxkHYAOqwfxO4WxMVlR5yPIYR2pJLK9UMVjYW8W3idd5f3M0YAY7l74YdplS3vIpWsG7pE2cXDRV7eqGi5h5fv3t3dDItmfHOddYdN1t06Lxd+yS8f8qH0Nmk2MewdMiycO2xZybubofgE25//L7o4j/wT7HQT0txlGXZNgRgA9ibOu3nvZjjyezeItkMquYfxh3ZsPXYeAByb77sDgHQYBLAO0gzZA1xMUbL/Ven4DF+2SH1Z50s0eHbMKarW8VnLb+N4ZnZfs8wrAKnhNESfW6bnvu+nysb5k/2ZZf7c72NvHkXJ55Vpn6CyaczGUbXMMPHZ5GMxRLWy/CRz5qd//bGftf4Xr6hWVkA2lthn+v8iVcoKaI9pHZ2xz/2EbOLVZ5Vp2+I0diaduvaUVvnryi4rodPTcGu58l07Ni2SWLLKPOL8MXy6Ne97csTY2KwyfT8jhHAy/EXZEjA6imW3VaYRHYDORNoeQwi74htWmV/nRRtRtZ9DxQjA4qGvVAvNJnes4mx38pYF1iKcOlwOw9Jcv6085ts7VlEmw93NIOo4O0VGE4Z3FbiXABb/dyy7U1oj2TuLiZthu68BQsCgawH3UzMsw1rEqfHUWh0IWwPjJwHIBhucTQDokphdukSD1ERZZ/bbGp3ZxevszC6Thyic1yh2N+LiPnchdp5J1w/2eWucpTwPdsxUHb9GOLNLUXmU6DMAXOlgR184zPQ9DAE=")
 size_override = Vector2(96, 64)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jn14c"]
@@ -67,11 +68,12 @@ script = ExtResource("2_0pyb8")
 
 [node name="StatsComponent" type="Node" parent="."]
 script = ExtResource("3_10qa2")
-base_hp = 3
+base_hp = 5
+base_mp = 0
 
 [node name="Sprite" type="Sprite2D" parent="."]
 texture_filter = 1
-texture = SubResource("PortableCompressedTexture2D_10qa2")
+texture = SubResource("PortableCompressedTexture2D_ytujr")
 hframes = 3
 vframes = 2
 frame = 1
@@ -93,7 +95,7 @@ metadata/_aseprite_wizard_config_ = {
 "source": "res://scenes/characters/Miny/Miny.aseprite",
 "source_uid": 6893159290547062567
 }
-metadata/_aseprite_wizard_source_file_hash_ = "7a060169bf266be4d421b1dfbe1311ef"
+metadata/_aseprite_wizard_source_file_hash_ = "160ebfb5ba4c6906a2d813c58492e152"
 
 [node name="Flasher" type="Node" parent="Sprite"]
 script = ExtResource("6_10qa2")
@@ -117,7 +119,8 @@ script = ExtResource("6_j5nbp")
 target_agent = NodePath("..")
 anystate_transitions = {
 "down": NodePath("down"),
-"hurt": NodePath("hurt")
+"hurt": NodePath("hurt"),
+&"stun": NodePath("stun")
 }
 
 [node name="idle" type="LimboState" parent="StateMachine" node_paths=PackedStringArray("animation_player")]
@@ -158,5 +161,12 @@ transitions = {
 [node name="down" type="LimboState" parent="StateMachine"]
 script = ExtResource("7_dv8ux")
 transitions = {}
+
+[node name="stun" type="LimboState" parent="StateMachine"]
+script = ExtResource("11_jgi4d")
+transitions = {
+&"finished": NodePath("../idle")
+}
+metadata/_custom_type_script = "uid://chifrsevdmxr5"
 
 [connection signal="damage_taken" from="StatsComponent" to="Sprite/Flasher" method="flash" unbinds=1]
