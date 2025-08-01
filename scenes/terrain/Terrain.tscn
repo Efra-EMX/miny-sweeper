@@ -1,22 +1,36 @@
-[gd_scene load_steps=12 format=3 uid="uid://fuvut23w11wf"]
+[gd_scene load_steps=15 format=3 uid="uid://fuvut23w11wf"]
 
 [ext_resource type="Script" uid="uid://8p1u4kwyulpv" path="res://scenes/terrain/Terrain.gd" id="1_dwccv"]
-[ext_resource type="Texture2D" uid="uid://xyykmd0ribkx" path="res://assets/tileset/Terrain.aseprite" id="2_noxng"]
+[ext_resource type="Texture2D" uid="uid://cx7n6okn2kyjr" path="res://assets/tileset/Floor.aseprite" id="2_k53a5"]
 [ext_resource type="Texture2D" uid="uid://jkexk3eus3vt" path="res://assets/tileset/Numbers.aseprite" id="3_wofx5"]
 [ext_resource type="Texture2D" uid="uid://djvqmr5xqmid3" path="res://assets/tileset/Icons.aseprite" id="4_8nlfv"]
 [ext_resource type="Script" uid="uid://ce6qqhddcvobu" path="res://scripts/components/tilemap/TileMapStack.gd" id="5_fkf5j"]
+[ext_resource type="Texture2D" uid="uid://brbeugyle06n3" path="res://assets/tileset/Wall.aseprite" id="5_k53a5"]
 [ext_resource type="Script" uid="uid://be4huww85ivlb" path="res://scripts/components/tilemap/TileMapSyncer.gd" id="6_q5r07"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ohv64"]
-texture = ExtResource("2_noxng")
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tjufj"]
+texture = ExtResource("2_k53a5")
 texture_region_size = Vector2i(24, 24)
 1:0/0 = 0
+1:0/0/terrain_set = 0
+1:0/0/terrain = 0
+1:0/0/probability = 12.0
+2:0/0 = 0
+2:0/0/terrain_set = 0
+2:0/0/terrain = 0
 0:1/0 = 0
-0:0/0 = 0
+0:1/0/terrain_set = 0
+0:1/0/terrain = 0
+1:1/0 = 0
+1:1/0/terrain_set = 0
+1:1/0/terrain = 0
 
-[sub_resource type="TileSet" id="TileSet_djht2"]
+[sub_resource type="TileSet" id="TileSet_dwccv"]
 tile_size = Vector2i(24, 24)
-sources/0 = SubResource("TileSetAtlasSource_ohv64")
+terrain_set_0/mode = 0
+terrain_set_0/terrain_0/name = "Terrain 0"
+terrain_set_0/terrain_0/color = Color(0.5, 0.34375, 0.25, 1)
+sources/0 = SubResource("TileSetAtlasSource_tjufj")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_k8v8q"]
 texture = ExtResource("3_wofx5")
@@ -41,6 +55,32 @@ tile_size = Vector2i(24, 24)
 sources/0 = SubResource("TileSetAtlasSource_k8v8q")
 sources/1 = SubResource("TileSetAtlasSource_l7tcq")
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dwccv"]
+texture = ExtResource("5_k53a5")
+texture_region_size = Vector2i(24, 24)
+1:0/0 = 0
+1:0/0/terrain_set = 0
+1:0/0/terrain = 0
+2:0/0 = 0
+2:0/0/terrain_set = 0
+2:0/0/terrain = 0
+0:1/0 = 0
+0:1/0/terrain_set = 0
+0:1/0/terrain = 0
+1:1/0 = 0
+1:1/0/terrain_set = 0
+1:1/0/terrain = 0
+2:1/0 = 0
+2:1/0/terrain_set = 0
+2:1/0/terrain = 0
+
+[sub_resource type="TileSet" id="TileSet_noxng"]
+tile_size = Vector2i(24, 24)
+terrain_set_0/mode = 0
+terrain_set_0/terrain_0/name = "Terrain 0"
+terrain_set_0/terrain_0/color = Color(0.5, 0.34375, 0.25, 1)
+sources/0 = SubResource("TileSetAtlasSource_dwccv")
+
 [node name="Terrain" type="Node2D" node_paths=PackedStringArray("floor_tilemap", "bomb_tilemap", "wall_tilemap", "label_tilemap")]
 script = ExtResource("1_dwccv")
 floor_tilemap = NodePath("FloorTileMap")
@@ -49,14 +89,14 @@ wall_tilemap = NodePath("WallTileMap")
 label_tilemap = NodePath("LabelTileMap")
 
 [node name="FloorTileMap" type="TileMapLayer" parent="."]
-tile_set = SubResource("TileSet_djht2")
+tile_set = SubResource("TileSet_dwccv")
 
 [node name="BombTileMap" type="TileMapLayer" parent="."]
 visible = false
 tile_set = SubResource("TileSet_ohv64")
 
 [node name="WallTileMap" type="TileMapLayer" parent="."]
-tile_set = SubResource("TileSet_djht2")
+tile_set = SubResource("TileSet_noxng")
 script = ExtResource("5_fkf5j")
 stack_count = 8
 

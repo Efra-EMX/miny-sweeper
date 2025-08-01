@@ -31,7 +31,8 @@ func generate_chunk(chunk_coords: Vector2i, empty_tiles: Array[Vector2i] = []) -
 	for coords:Vector2i in get_coords_in_chunk(chunk_coords):
 		#set_bomb(coords, bomb_array[coords.x + (coords.y * chunk_size.x)])
 		set_wall(coords, true)
-		floor_tilemap.set_cell(coords, 0, Vector2i(1,0))
+		#floor_tilemap.set_cell(coords, 0, Vector2i(1,0))
+	floor_tilemap.set_cells_terrain_connect(get_coords_in_chunk(chunk_coords), 0, 0)
 	
 	var bomb_array: Array[bool]
 	bomb_array.resize(bomb_count)
@@ -91,7 +92,8 @@ func set_bomb(coords: Vector2i, value: bool) -> void:
 
 func set_wall(coords: Vector2i, value: bool) -> void:
 	if value:
-		wall_tilemap.set_cell(coords, 0, Vector2i(0,1))
+		#wall_tilemap.set_cell(coords, 0, Vector2i(0,1))
+		wall_tilemap.set_cells_terrain_connect([coords], 0, 0)
 		return
 	wall_tilemap.set_cell(coords)
 	

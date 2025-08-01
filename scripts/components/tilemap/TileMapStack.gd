@@ -35,5 +35,15 @@ func _update_cells(coords: Array[Vector2i], forced_cleanup: bool) -> void:
 	for tilemap in target_tilemaps:
 		if tilemap == null:
 			continue
+		#tilemap.set_cells_terrain_connect(coords, 0, 0)
+		#tilemap.clear()
 		for tile in coords:
-			tilemap.set_cell(tile, get_cell_source_id(tile), get_cell_atlas_coords(tile))
+			if get_cell_source_id(tile) < 0:
+				tilemap.set_cell(tile)
+				continue
+			tilemap.set_cells_terrain_connect([tile], 0, 0)
+	#for tilemap in target_tilemaps:
+		#if tilemap == null:
+			#continue
+		#for tile in coords:
+			#tilemap.set_cell(tile, get_cell_source_id(tile), get_cell_atlas_coords(tile))

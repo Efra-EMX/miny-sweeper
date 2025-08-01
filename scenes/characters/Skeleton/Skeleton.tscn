@@ -28,7 +28,7 @@ _data = {
 &"Idle": SubResource("Animation_esupy")
 }
 
-[node name="BasicCharacter" instance=ExtResource("1_hp4l2")]
+[node name="Skeleton" instance=ExtResource("1_hp4l2")]
 
 [node name="Sprite" parent="." index="2"]
 texture_filter = 1
