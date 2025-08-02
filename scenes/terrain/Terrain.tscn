@@ -81,6 +81,7 @@ sources/0 = SubResource("TileSetAtlasSource_dwccv")
 [node name="Terrain" type="Node2D" node_paths=PackedStringArray("floor_tilemap", "bomb_tilemap", "wall_tilemap", "label_tilemap", "enemy_tilemap")]
 script = ExtResource("1_dwccv")
 bounds = Rect2i(0, 0, 1, 1)
+enemy_count = 5
 floor_tilemap = NodePath("FloorTileMap")
 bomb_tilemap = NodePath("TopLabel/BombTileMap")
 wall_tilemap = NodePath("WallTileMap")

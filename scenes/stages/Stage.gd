@@ -13,6 +13,10 @@ func _enter_tree() -> void:
 	Global.stage = self
 	Global.terrain = $Terrain
 	Global.player = $Miny
+	
+	if SceneManager.passed_data.has(&"endless"):
+		if SceneManager.passed_data[&"endless"] == true:
+			Global.terrain.bounds = Rect2i()
 
 func _ready() -> void:
 	if Global.game_running:

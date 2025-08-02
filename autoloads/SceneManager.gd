@@ -11,7 +11,12 @@ func _enter_tree() -> void:
 	process_mode = PROCESS_MODE_ALWAYS
 
 func transition(target_scene, data: Dictionary = {}) -> void:
-	passed_data = data
+	#if not data.is_empty():
+		#passed_data = data
+	
+	for key in data:
+		passed_data[key] = data[key]
+	
 	if is_transitioning():
 		print_debug("Transition failed -> " + str(target_scene))
 		return

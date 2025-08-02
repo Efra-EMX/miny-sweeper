@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bxbuvvlr3cw8y"]
+[gd_scene load_steps=15 format=3 uid="uid://bxbuvvlr3cw8y"]
 
 [ext_resource type="Script" uid="uid://cwaeofrl1dlrv" path="res://scenes/menus/essentials/VersionDisplay.gd" id="1_mxeaf"]
 [ext_resource type="Script" uid="uid://dh2sguw75mt8h" path="res://scenes/menus/essentials/Page.gd" id="1_xc71b"]
@@ -6,6 +6,7 @@
 [ext_resource type="FontFile" uid="uid://dn727l3ca5xc6" path="res://assets/ui/themes/Axial/AXIAL.ttf" id="2_oxovb"]
 [ext_resource type="Script" uid="uid://dkp0gixmus7fj" path="res://scenes/menus/essentials/buttons/MethodButton.gd" id="3_30q4t"]
 [ext_resource type="Script" uid="uid://dgtfod450rid6" path="res://scenes/menus/essentials/buttons/PageSwitchButton.gd" id="3_rgi7d"]
+[ext_resource type="Script" uid="uid://d2hk27uowfiym" path="res://scenes/menus/essentials/buttons/ChangeSceneButton.gd" id="4_gquoy"]
 [ext_resource type="Script" uid="uid://btas83sxfvp70" path="res://scenes/menus/essentials/buttons/PageBackButton.gd" id="4_yc4oe"]
 [ext_resource type="PackedScene" uid="uid://da2eta75lyh4w" path="res://scenes/menus/settings menu/settings_page.tscn" id="6_2wpxt"]
 [ext_resource type="LabelSettings" uid="uid://ynnau0nhkj75" path="res://assets/ui/themes/Axial/label-header.tres" id="6_fgrip"]
@@ -90,6 +91,16 @@ grow_vertical = 2
 layout_mode = 2
 text = "START"
 script = ExtResource("3_30q4t")
+
+[node name="Endless" type="Button" parent="Main Menu/Menus"]
+layout_mode = 2
+text = "ENDLESS"
+script = ExtResource("4_gquoy")
+target_scene = "uid://bg248w7ij17mf"
+data = {
+&"endless": true,
+&"title": false
+}
 
 [node name="Settings" type="Button" parent="Main Menu/Menus" node_paths=PackedStringArray("target_page")]
 layout_mode = 2

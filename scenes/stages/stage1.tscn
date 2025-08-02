@@ -162,6 +162,10 @@ layout_mode = 2
 text = "RETURN TO TITLE"
 script = ExtResource("9_rptx6")
 target_scene = "uid://bg248w7ij17mf"
+data = {
+&"endless": false,
+&"title": true
+}
 
 [node name="Terrain" parent="." instance=ExtResource("3_ds8dt")]
 
