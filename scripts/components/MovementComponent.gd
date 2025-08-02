@@ -22,6 +22,8 @@ func move(target_coords:Vector2i) -> void:
 	else:
 		move_tween = Global.terrain.bounce_to(parent_entity, target_coords)
 	
+	AudioManager.play("step")
+	
 	await move_tween.finished
 	moved.emit()
 	

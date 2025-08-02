@@ -49,6 +49,7 @@ func damage(amount: int) -> bool:
 	
 	hp -= amount
 	damage_taken.emit(amount)
+	AudioManager.play("hurt")
 	return true
 
 func heal(amount: int) -> bool:

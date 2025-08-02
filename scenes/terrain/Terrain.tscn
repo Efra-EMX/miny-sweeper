@@ -70,9 +70,6 @@ texture_region_size = Vector2i(24, 24)
 1:1/0 = 0
 1:1/0/terrain_set = 0
 1:1/0/terrain = 0
-2:1/0 = 0
-2:1/0/terrain_set = 0
-2:1/0/terrain = 0
 
 [sub_resource type="TileSet" id="TileSet_noxng"]
 tile_size = Vector2i(24, 24)
@@ -81,17 +78,22 @@ terrain_set_0/terrain_0/name = "Terrain 0"
 terrain_set_0/terrain_0/color = Color(0.5, 0.34375, 0.25, 1)
 sources/0 = SubResource("TileSetAtlasSource_dwccv")
 
-[node name="Terrain" type="Node2D" node_paths=PackedStringArray("floor_tilemap", "bomb_tilemap", "wall_tilemap", "label_tilemap")]
+[node name="Terrain" type="Node2D" node_paths=PackedStringArray("floor_tilemap", "bomb_tilemap", "wall_tilemap", "label_tilemap", "enemy_tilemap")]
 script = ExtResource("1_dwccv")
 floor_tilemap = NodePath("FloorTileMap")
 bomb_tilemap = NodePath("BombTileMap")
 wall_tilemap = NodePath("WallTileMap")
 label_tilemap = NodePath("LabelTileMap")
+enemy_tilemap = NodePath("EnemyTileMap")
 
 [node name="FloorTileMap" type="TileMapLayer" parent="."]
 tile_set = SubResource("TileSet_dwccv")
 
 [node name="BombTileMap" type="TileMapLayer" parent="."]
+visible = false
+tile_set = SubResource("TileSet_ohv64")
+
+[node name="EnemyTileMap" type="TileMapLayer" parent="."]
 visible = false
 tile_set = SubResource("TileSet_ohv64")
 
@@ -110,4 +112,4 @@ layer = 10
 follow_viewport_enabled = true
 
 [node name="TopLabel" type="TileMapLayer" parent="TopLabel"]
-modulate = Color(1, 1, 1, 0.392157)
+modulate = Color(1, 1, 1, 0.588235)

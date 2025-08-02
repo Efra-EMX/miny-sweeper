@@ -10,7 +10,8 @@ func interact(from: Entity = null) -> void:
 	exploded = true
 	#modulate = Color.RED
 	await get_tree().create_timer(0.5).timeout
-	
+	AudioManager.play("explosion1")
+	Global.camera.shake()
 	for neighbor_coords in Global.terrain.base_tilemap.get_surrounding_cells(coords):
 		interact_with(neighbor_coords)
 	

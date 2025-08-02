@@ -76,7 +76,7 @@ layer = 10
 follow_viewport_enabled = true
 
 [node name="TileHighlight" type="Sprite2D" parent="TopLabel"]
-modulate = Color(1, 1, 1, 0.392157)
+modulate = Color(1, 1, 1, 0.588235)
 texture = ExtResource("6_i5f5j")
 script = ExtResource("7_i5f5j")
 

@@ -27,8 +27,10 @@ func _enter() -> void:
 		%AnimationPlayer.play("Mine")
 		await %AnimationPlayer.animation_finished
 		if Global.terrain.is_tile_has_bomb(target_coords):
+			PopUpManager.pop_text("BOMB +1", Global.terrain.coords_to_position(agent.coords) + Vector2(0,-12), Color.YELLOW)
 			await Global.terrain.reveal(target_coords)
 			agent.stats_component.mp += 1
+			AudioManager.play("confirm")
 		else:
 			await Global.terrain.reveal(target_coords)
 			agent.busy = false

@@ -25,6 +25,7 @@ func _enter() -> void:
 			var target_entity: Entity = Entity.get_entity_on_coords(coords)
 			if target_entity != null:
 				if target_entity == Global.player:
+					await Global.terrain.bounce_to(agent, target_entity.coords).finished
 					target_entity.take_hit(AttackData.new(1, agent))
 	super._enter()
 	

@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://bss0y1vu6hko5"]
+
+[ext_resource type="Texture2D" uid="uid://beiocrks4cnii" path="res://scenes/effects/debris.png" id="1_31wjh"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_bvilh"]
+particle_flag_disable_z = true
+direction = Vector3(0, -1, 0)
+spread = 10.0
+initial_velocity_min = 226.61
+initial_velocity_max = 357.21
+gravity = Vector3(0, 2000, 0)
+
+[node name="Debris" type="GPUParticles2D"]
+emitting = false
+amount = 4
+texture = ExtResource("1_31wjh")
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_bvilh")
+
+[connection signal="finished" from="." to="." method="queue_free"]

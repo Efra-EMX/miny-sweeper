@@ -5,11 +5,13 @@ static var base_tilemap: TileMapLayer
 
 @export var chunk_size: Vector2i = Vector2i(8, 8)
 @export var bomb_count: int = 10
+@export var enemy_count: int = 3
 
 @export var floor_tilemap: TileMapLayer
 @export var bomb_tilemap: TileMapLayer
 @export var wall_tilemap: TileMapLayer
 @export var label_tilemap: TileMapLayer
+@export var enemy_tilemap: TileMapLayer
 @onready var started: bool = false
 
 var bomb_atlas_coords = Vector2i(1, 0)
@@ -34,14 +36,20 @@ func generate_chunk(chunk_coords: Vector2i, empty_tiles: Array[Vector2i] = []) -
 		#floor_tilemap.set_cell(coords, 0, Vector2i(1,0))
 	floor_tilemap.set_cells_terrain_connect(get_coords_in_chunk(chunk_coords), 0, 0)
 	
-	var bomb_array: Array[bool]
+	var bomb_array: Array[int]
 	bomb_array.resize(bomb_count)
-	bomb_array.fill(true)
-	bomb_array.resize((chunk_size.x * chunk_size.y) - empty_tiles.size())
-	bomb_array.shuffle()
+	bomb_array.fill(1)
+	
+	var enemy_array: Array[int]
+	enemy_array.resize(enemy_count)
+	enemy_array.fill(2)
+	
+	var hazard_array = bomb_array + enemy_array
+	hazard_array.resize((chunk_size.x * chunk_size.y) - empty_tiles.size())
+	hazard_array.shuffle()
 	
 	#var array_size: int = bomb_array.size()
-	for index in bomb_array.size():
+	for index in hazard_array.size():
 		index = (chunk_size.x * chunk_size.y) - (index + 1)
 		
 		var x: int = index % chunk_size.x
@@ -49,7 +57,13 @@ func generate_chunk(chunk_coords: Vector2i, empty_tiles: Array[Vector2i] = []) -
 		
 		if empty_tiles.has(coords):
 			continue
-		set_bomb(coords, bomb_array.pop_back())
+		
+		var hazard: int = hazard_array.pop_back()
+		
+		if hazard == 1:
+			set_bomb(coords, true)
+		if hazard == 2:
+			set_enemy(coords, true)
 		
 	loaded_chunks.append(chunk_coords)
 	if not started:
@@ -151,26 +165,51 @@ func is_tile_has_bomb_nearby(coords: Vector2i) -> bool:
 			return true
 	return false
 
+func set_enemy(coords: Vector2i, value: bool) -> void:
+	if value:
+		enemy_tilemap.set_cell(coords, 1, bomb_atlas_coords)
+	else:
+		enemy_tilemap.set_cell(coords)
+
+func is_tile_has_enemy(coords: Vector2i) -> bool:
+	if enemy_tilemap.get_cell_source_id(coords) >= 0:
+		return true
+	return false
+
 func is_tile_revealed(coords: Vector2i) -> bool:
 	if wall_tilemap.get_cell_source_id(coords) < 0:
 		return true
 	return false
 
 func reveal(coords: Vector2i) -> void:
-	#set_bomb(coords, false)
+	if is_tile_revealed(coords):
+		return
 	
 	for neighbor_coords in get_nearby_coords(coords):
 		if not is_tile_loaded(neighbor_coords):
 			generate_chunk(coords_to_chunk_coords(neighbor_coords))
 	
-	if not (is_tile_has_bomb_nearby(coords) or is_tile_has_bomb(coords)):
-		var chance: int = randi_range(1, 16)
-		if chance <= 1:
-			var new_enemy: Character = preload("uid://b4lxoo3a7thov").instantiate()
-			new_enemy.position = coords_to_position(coords)
-			Global.stage.add_child(new_enemy)
-			#new_enemy.interact()
+	if is_tile_has_enemy(coords):
+		var new_enemy: Character = preload("uid://b4lxoo3a7thov").instantiate()
+		new_enemy.position = coords_to_position(coords)
+		Global.stage.add_child(new_enemy)
+		new_enemy.state_machine.dispatch.call_deferred("stun")
 	
+	#if not (is_tile_has_bomb_nearby(coords) or is_tile_has_bomb(coords)):
+		#var chance: int = randi_range(1, 16)
+		#if chance <= 1:
+			#var new_enemy: Character = preload("uid://b4lxoo3a7thov").instantiate()
+			#new_enemy.position = coords_to_position(coords)
+			#Global.stage.add_child(new_enemy)
+			#new_enemy.interact()
+	var chance: int = randi_range(1, 4)
+	if chance <= 1:
+		var new_effect: GPUParticles2D = preload("res://scenes/effects/debris.tscn").instantiate()
+		PopUpManager.add_child(new_effect)
+		new_effect.global_position = coords_to_position(coords)
+		new_effect.emitting = true
+	
+	AudioManager.play("break")
 	set_wall(coords, false)
 	update_label(coords)
 
@@ -185,10 +224,20 @@ func chain_reveal(coords: Vector2i) -> void:
 	if is_tile_has_bomb_nearby(coords) or is_tile_has_bomb(coords):
 		return
 	
+	await get_tree().create_timer(0.1).timeout
+	
 	for neighbor_coords in get_nearby_coords(coords):
 		chain_reveal(neighbor_coords)
 
 func break_tile(coords: Vector2i) -> void:
+	if is_tile_revealed(coords):
+		return
+	
+	var new_effect: GPUParticles2D = preload("res://scenes/effects/debris.tscn").instantiate()
+	PopUpManager.add_child(new_effect)
+	new_effect.global_position = coords_to_position(coords)
+	new_effect.emitting = true
+	
 	if is_tile_has_bomb(coords):
 		reveal(coords)
 		var new_bomb: Entity = preload("uid://b3wjebir88nf8").instantiate()
@@ -197,12 +246,12 @@ func break_tile(coords: Vector2i) -> void:
 		new_bomb.interact()
 		pass
 	else:
-		#spawn materials
 		await chain_reveal(coords)
 
 func toggle_flag(coords: Vector2i) -> void:
 	if is_tile_revealed(coords):
 		return
+	AudioManager.play("select")
 	if label_tilemap.get_cell_source_id(coords) < 0:
 		label_tilemap.set_cell(coords, 1, Vector2i(2,0))
 		return
@@ -220,7 +269,7 @@ func move_to(node: Node2D, coords: Vector2i, time = 0.2) -> Tween:
 	return tween
 
 func bounce_to(node: Node2D, coords: Vector2i, time = 0.2) -> Tween:
-	var tween = node.create_tween().set_trans(Tween.TRANS_QUAD)
+	var tween = node.create_tween().set_trans(Tween.TRANS_EXPO)
 	var original_position: Vector2 = node.global_position
 	var target_position: Vector2 = base_tilemap.to_global(base_tilemap.map_to_local(coords))
 	var bounce_direction: Vector2 = original_position.direction_to(target_position) * (base_tilemap.tile_set.tile_size as Vector2 / 2)

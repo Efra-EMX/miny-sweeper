@@ -11,7 +11,10 @@ func _enter() -> void:
 	#elif is_in_group("enemy"):
 		#TurnManager.enemy_turn.connect(on_enemy_turn)
 	#TurnManager.new_turn.connect(on_new_turn)
+	AudioManager.play("hurt")
 	super._enter()
+	await get_tree().process_frame
+	agent.animation_player.stop()
 
 func _update(delta: float) -> void:
 	if agent.actionable:

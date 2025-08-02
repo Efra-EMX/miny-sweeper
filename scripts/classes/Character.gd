@@ -3,6 +3,7 @@ class_name Character
 
 @onready var movement_component: MovementComponent = $MovementComponent
 @onready var state_machine: GenericHSM = $StateMachine
+@onready var animation_player: AnimationPlayer = %AnimationPlayer
 
 func _ready() -> void:
 	if is_in_group("player"):

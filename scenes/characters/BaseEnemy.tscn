@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://1lpdh8fl68u"]
+[gd_scene load_steps=12 format=3 uid="uid://1lpdh8fl68u"]
 
 [ext_resource type="Script" uid="uid://bvfacx4epfw42" path="res://scripts/classes/Character.gd" id="1_6jwid"]
 [ext_resource type="Script" uid="uid://cghd6ryeteifh" path="res://scripts/components/MovementComponent.gd" id="2_cv20u"]
@@ -10,7 +10,6 @@
 [ext_resource type="Script" uid="uid://chifrsevdmxr5" path="res://scripts/limboai/GenericState.gd" id="8_4e7se"]
 [ext_resource type="Script" uid="uid://m2fx2ncnpqin" path="res://scenes/characters/EnemyIdle.gd" id="8_dnb83"]
 [ext_resource type="Script" uid="uid://cymbxuw6yqq4" path="res://scenes/characters/stun.gd" id="10_dnb83"]
-[ext_resource type="Texture2D" uid="uid://brcu3fw8afexb" path="res://assets/shapes/highlight.png" id="11_67oyg"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jn14c"]
 radius = 4.0
@@ -40,6 +39,7 @@ shape = SubResource("CircleShape2D_jn14c")
 debug_color = Color(0, 1, 0, 0.196078)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
 
 [node name="StateMachine" type="LimboHSM" parent="." node_paths=PackedStringArray("target_agent")]
 script = ExtResource("7_qfy7v")
@@ -88,26 +88,5 @@ transitions = {
 [node name="down" type="LimboState" parent="StateMachine"]
 script = ExtResource("8_4e7se")
 transitions = {}
-
-[node name="Range" type="Node2D" parent="."]
-visible = false
-modulate = Color(0.85098, 0.341176, 0.388235, 1)
-
-[node name="Sprite2" type="Sprite2D" parent="Range"]
-position = Vector2(-24, 2.38419e-07)
-texture = ExtResource("11_67oyg")
-
-[node name="Sprite2" type="Sprite2D" parent="Range/Sprite2"]
-position = Vector2(48, 2.38419e-07)
-texture = ExtResource("11_67oyg")
-
-[node name="Sprite2" type="Sprite2D" parent="Range/Sprite2/Sprite2"]
-position = Vector2(-24, 24)
-texture = ExtResource("11_67oyg")
-
-[node name="Sprite2" type="Sprite2D" parent="Range/Sprite2/Sprite2/Sprite2"]
-show_behind_parent = true
-position = Vector2(0, -48)
-texture = ExtResource("11_67oyg")
 
 [connection signal="damage_taken" from="StatsComponent" to="Sprite/Flasher" method="flash" unbinds=1]

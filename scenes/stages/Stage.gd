@@ -23,7 +23,7 @@ func _ready() -> void:
 	$TopLabel/TileHighlight.hide()
 
 func start_game() -> void:
-	$"UI/Title Screen".hide()
+	$"UI/Title Screen".queue_free()
 	#Global.camera.offset.x = 0
 	create_tween().tween_property(Global.camera, "offset", Vector2.ZERO, 0.5).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO)
 	Global.game_running = true

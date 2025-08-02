@@ -87,7 +87,7 @@ target_page = NodePath("../../../Settings Page")
 layout_mode = 2
 text = "RETURN TO TITLE"
 script = ExtResource("6_8eo1e")
-target_scene = "res://scenes/menus/title_screen.tscn"
+target_scene = "uid://bg248w7ij17mf"
 
 [node name="Settings Page" parent="Panel" instance=ExtResource("7_tjd2e")]
 visible = false
