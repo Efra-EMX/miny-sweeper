@@ -3,6 +3,7 @@ class_name Terrain
 
 static var base_tilemap: TileMapLayer
 
+@export var bounds: Rect2i
 @export var chunk_size: Vector2i = Vector2i(8, 8)
 @export var bomb_count: int = 10
 @export var enemy_count: int = 3
@@ -30,11 +31,9 @@ func generate_chunk(chunk_coords: Vector2i, empty_tiles: Array[Vector2i] = []) -
 	if loaded_chunks.has(chunk_coords):
 		return
 	
-	for coords:Vector2i in get_coords_in_chunk(chunk_coords):
-		#set_bomb(coords, bomb_array[coords.x + (coords.y * chunk_size.x)])
-		set_wall(coords, true)
-		#floor_tilemap.set_cell(coords, 0, Vector2i(1,0))
-	floor_tilemap.set_cells_terrain_connect(get_coords_in_chunk(chunk_coords), 0, 0)
+	if bounds.has_area():
+		if not bounds.has_point(chunk_coords):
+			return
 	
 	var bomb_array: Array[int]
 	bomb_array.resize(bomb_count)
@@ -49,11 +48,15 @@ func generate_chunk(chunk_coords: Vector2i, empty_tiles: Array[Vector2i] = []) -
 	hazard_array.shuffle()
 	
 	#var array_size: int = bomb_array.size()
-	for index in hazard_array.size():
-		index = (chunk_size.x * chunk_size.y) - (index + 1)
-		
-		var x: int = index % chunk_size.x
-		var coords: Vector2i = Vector2i(x, (index - x) / chunk_size.x) + (chunk_coords * chunk_size)
+	#for index in hazard_array.size():
+		#index = (chunk_size.x * chunk_size.y) - (index + 1)
+		#
+		#var x: int = index % chunk_size.x
+		#var coords: Vector2i = Vector2i(x, (index - x) / chunk_size.x) + (chunk_coords * chunk_size)
+	
+	floor_tilemap.set_cells_terrain_connect(get_coords_in_chunk(chunk_coords), 0, 0)
+	for coords:Vector2i in get_coords_in_chunk(chunk_coords):
+		set_wall(coords, true)
 		
 		if empty_tiles.has(coords):
 			continue
@@ -261,6 +264,21 @@ func is_tile_flagged(coords: Vector2i) -> bool:
 	if label_tilemap.get_cell_source_id(coords) == 1 and label_tilemap.get_cell_atlas_coords(coords) == Vector2i(2,0):
 		return true
 	return false
+
+func get_bombs_left() -> int:
+	var count: int = 0
+	for coords in bomb_tilemap.get_used_cells():
+		if not is_tile_revealed(coords):
+			count += 1
+	return count
+
+func get_enemies_left() -> int:
+	var count: int = 0
+	for coords in enemy_tilemap.get_used_cells():
+		if not is_tile_revealed(coords):
+			count += 1
+	count += get_tree().get_nodes_in_group("enemy").size()
+	return count
 
 func move_to(node: Node2D, coords: Vector2i, time = 0.2) -> Tween:
 	var tween: Tween = node.create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)

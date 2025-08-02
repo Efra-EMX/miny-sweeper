@@ -1,6 +1,14 @@
 extends Node2D
 class_name Stage
 
+var bombs_left: int:
+	get():
+		return Global.terrain.get_bombs_left()
+
+var enemies_left: int:
+	get():
+		return Global.terrain.get_enemies_left()
+
 func _enter_tree() -> void:
 	Global.stage = self
 	Global.terrain = $Terrain
@@ -17,6 +25,11 @@ func _ready() -> void:
 	Global.terrain.generate_chunk(Global.terrain.coords_to_chunk_coords(Global.player.coords), empty_tiles)
 	Global.terrain.chain_reveal(Global.player.coords)
 	
+	if SceneManager.passed_data.has(&"title"):
+		if SceneManager.passed_data[&"title"] == false:
+			start_game()
+			return
+	
 	Global.camera.offset.x = - get_viewport_rect().size.x / 4
 	$UI/GUI.hide()
 	$TileHighlight.hide()
@@ -32,12 +45,18 @@ func start_game() -> void:
 	$TopLabel/TileHighlight.show()
 	TurnManager.start.call_deferred()
 
+func stop_game() -> void:
+	Global.game_running = false
+	TurnManager.stop()
+	Page.switch_page($UI/GameOver)
+	Global.terrain.bomb_tilemap.show()
+
 func _physics_process(delta: float) -> void:
-	if not TurnManager.is_running():
+	if not Global.game_running:
 		return
 	
 	if Global.player == null:
-		TurnManager.stop()
+		stop_game()
 		return
 	
 	if Global.player.stats_component == null:
@@ -46,4 +65,4 @@ func _physics_process(delta: float) -> void:
 	if Global.player.stats_component.is_alive():
 		return
 	
-	TurnManager.stop()
+	stop_game()

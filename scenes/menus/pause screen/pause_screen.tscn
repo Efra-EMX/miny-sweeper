@@ -83,6 +83,15 @@ text = "SETTINGS"
 script = ExtResource("5_owrqr")
 target_page = NodePath("../../../Settings Page")
 
+[node name="Restart" type="Button" parent="Panel/Pause Menu/VBoxContainer"]
+layout_mode = 2
+text = "RESTART"
+script = ExtResource("6_8eo1e")
+target_scene = "uid://bg248w7ij17mf"
+data = {
+&"title": false
+}
+
 [node name="Return to TItle" type="Button" parent="Panel/Pause Menu/VBoxContainer"]
 layout_mode = 2
 text = "RETURN TO TITLE"

@@ -5,7 +5,7 @@ class_name Page
 
 static var current_page: Page:
 	set(page):
-		if !page:
+		if page == null:
 			if current_page != null:
 				current_page.deactivate()
 				current_page = null

@@ -22,6 +22,16 @@ func _process(_delta: float) -> void:
 	if following:
 		global_position = lerp(global_position, get_center_point(), 0.2)
 
+func _physics_process(delta: float) -> void:
+	if not Global.game_running:
+		return
+	
+	var chunk_coords: Vector2i = Global.terrain.position_to_chunk_coords(global_position)
+	
+	for chunk in Global.terrain.get_nearby_coords(chunk_coords) + [chunk_coords]:
+		if not Global.terrain.loaded_chunks.has(chunk):
+			Global.terrain.generate_chunk(chunk)
+
 func get_center_point() -> Vector2:
 	if target_list.has(null):
 		target_list = target_list.filter(func(element): return element != null)

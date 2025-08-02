@@ -37,9 +37,13 @@ func _unhandled_input(event: InputEvent) -> void:
 				return
 			
 			var new_bomb: Entity = preload("uid://b3wjebir88nf8").instantiate()
-			new_bomb.position = Global.terrain.coords_to_position(coords)
+			new_bomb.position = Global.terrain.coords_to_position(parent_entity.coords)
 			Global.stage.add_child(new_bomb)
+			new_bomb.coords = coords
 			new_bomb.interact()
+			AudioManager.play("drop")
+			
+			Global.terrain.move_to(new_bomb, coords)
 			
 			parent_entity.actionable = false
 			parent_entity.stats_component.mp -= 1

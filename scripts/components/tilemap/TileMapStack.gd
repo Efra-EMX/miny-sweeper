@@ -30,7 +30,14 @@ func _ready() -> void:
 		new_canvas_layer.add_child(new_tilemap)
 		
 		target_tilemaps.append(new_tilemap)
-		
+
+#func _physics_process(delta: float) -> void:
+	#var chunk_coords: Vector2i = Global.terrain.position_to_chunk_coords(Global.camera.global_position)
+	#
+	#for chunk in Global.terrain.get_nearby_coords(chunk_coords) + [chunk_coords]:
+		#if not Global.terrain.loaded_chunks.has(chunk):
+			#Global.terrain.generate_chunk(chunk)
+
 func _update_cells(coords: Array[Vector2i], forced_cleanup: bool) -> void:
 	for tilemap in target_tilemaps:
 		if tilemap == null:

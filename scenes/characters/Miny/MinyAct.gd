@@ -32,7 +32,7 @@ func _enter() -> void:
 			agent.stats_component.mp += 1
 			AudioManager.play("confirm")
 		else:
-			await Global.terrain.reveal(target_coords)
+			await Global.terrain.break_tile(target_coords)
 			agent.busy = false
 			print_debug(agent.state_machine.dispatch("stun"))
 			return

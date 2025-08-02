@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://dvdmbpt0kgsuh" path="res://scenes/characters/Skeleton/SkeletonAct.gd" id="2_esupy"]
 
 [sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_esupy"]
-_data = PackedByteArray("AAADAAUAAAABAAAAQAAAAEAAAABQAQAAUklGRkgBAABXRUJQVlA4TDwBAAAvP8APEC9AEEASQCrL7I+wwxpkAhbrthL6C+FEmG00iL2mdf4sN/8B+H+imyRWgN0Abt2GACcgbhHSF00QdAKB++9iC5TY92dE/x24beNI0mZ70eF+Ib+jTlJbMzNzdDpnPup5p+cNc+w7a4bNcd45V1J3nSVc1OPOSXuM8043owVC9p07eh0WZnqOAGY3553iBEDZdG6IIFWanRHVIIIMrbaEEUUHAlbfgnsQjCJTCaMXoQiSRIEpDOHFja4gw4sDCkkKRarStbL6pYwyw0MEKtvOLb0OivCk4z+lk9TWzMwcHWY+amObN8zRY9hsMFdSG3CxAe0xGqfNaIEvZZE8X7Awk42/HQB9fuj54fJWz2OA5V3vOc63MBpffgoCZoG3duBFvkR4eqCIK1ylIXhZazxE0UWaUIQqv5MC")
+_data = PackedByteArray("AAADAAUAAAABAAAAQAAAAEAAAAB0AQAAUklGRmwBAABXRUJQVlA4TF8BAAAvP8APEC9AEEASQCrL7I+wwxpkAhbrthL6C+FEmG00iL2mdf4sN/8B+H+imyRWgB1Jct3mUE4AW5uIVytG4HIEKOSfC0kBd37+RvSfgdu2jZR1+4T2F/E3RAfQSiXbrHhqzDmPlvfsY17BvKfmiU+RreeaA+NoWc8+7kzuPJf4Ftx7vmIAgNKeIcAQ1faeO2oeEMBI00ngIu0ZMkm3WHtukDb7nPOUFh6iZIuracLkQlPEep1pgvKrh0QTFrnwtG0uAAlKiwdF2tLixPAZ8GLdBQpcPIJOWw3LD7VOxsoDFBg7ah5u3SWPjgi0hMd/Gh1AK5Vss4LGnPNohTnmFSzMeeJzlDgw8vRxZ7KAb1HAAAAVLgOG+AWgwC1spG/wxphu6WGS1vhk/tQ2ocn0CQEIH+mtE0wYfioLRUD8YAU/7GfrTvJO6iExApEM0A+wRT4kkG9RA0UMuERHA+KXRgAA")
 size_override = Vector2(64, 64)
 
 [sub_resource type="Animation" id="Animation_esupy"]
@@ -53,7 +53,7 @@ metadata/_aseprite_wizard_config_ = {
 "source": "res://scenes/characters/Skeleton/Skeleton.aseprite",
 "source_uid": 7355296129689921247
 }
-metadata/_aseprite_wizard_source_file_hash_ = "71ba600c6d9d157c34625a12ddb54290"
+metadata/_aseprite_wizard_source_file_hash_ = "c9c31b2617bf1cf38aa451e29edd611f"
 
 [node name="AnimationPlayer" parent="." index="4"]
 libraries = {
