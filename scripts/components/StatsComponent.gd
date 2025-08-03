@@ -50,6 +50,15 @@ func damage(amount: int) -> bool:
 	hp -= amount
 	damage_taken.emit(amount)
 	AudioManager.play("hurt")
+	if &"state_machine" in parent:
+		parent.state_machine.dispatch("hurt")
+	if parent == Global.player:
+		PopUpManager.pop_text([
+				"Ouch!",
+				"That hurts!",
+				"Oof!"
+			].pick_random(), Global.terrain.coords_to_position(parent.coords) + Vector2(0,-12))
+	
 	return true
 
 func heal(amount: int) -> bool:

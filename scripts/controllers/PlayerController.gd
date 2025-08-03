@@ -35,6 +35,14 @@ func _unhandled_input(event: InputEvent) -> void:
 			
 			if not Global.terrain.is_tile_revealed(coords):
 				return
+			if not parent_entity.is_tile_within_range(coords):
+				return
+			
+			parent_entity.direction = round(Vector2(parent_entity.coords).direction_to(coords))
+			
+			%AnimationPlayer.play("Throw")
+			await %AnimationPlayer.animation_finished
+			%AnimationPlayer.play("Idle")
 			
 			var new_bomb: Entity = preload("uid://b3wjebir88nf8").instantiate()
 			new_bomb.position = Global.terrain.coords_to_position(parent_entity.coords)

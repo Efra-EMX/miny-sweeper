@@ -15,3 +15,10 @@ func get_coords() -> Vector2i:
 func _process(delta: float) -> void:
 	var mouse_position: Vector2 = get_viewport().get_camera_2d().get_global_mouse_position()
 	coords = Global.terrain.position_to_coords(mouse_position)
+	
+	$BombSprite.hide()
+	
+	if Global.player.stats_component.mp <= 0:
+		return
+	if Global.player.is_tile_within_range(get_coords()):
+		$BombSprite.show()

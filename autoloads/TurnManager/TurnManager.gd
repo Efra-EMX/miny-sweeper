@@ -24,7 +24,7 @@ func start() -> void:
 	dispatch("PlayerTurn")
 
 func stop() -> void:
-	turn_counter = 0
+	#turn_counter = 0
 	dispatch("Idle")
 
 func is_running() -> bool:

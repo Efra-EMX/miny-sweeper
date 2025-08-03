@@ -16,7 +16,12 @@ func interact(from: Entity = null) -> void:
 		interact_with(neighbor_coords)
 	
 	busy = false
+	
+	var explosion: Node2D = preload("res://scenes/effects/explosion.tscn").instantiate()
+	Global.stage.add_child(explosion)
+	explosion.global_position = global_position
 	queue_free()
+	Global.stage.bombs_exploded += 1
 
 func interact_with(coords: Vector2i) -> void:
 	if Global.terrain.is_tile_revealed(coords):

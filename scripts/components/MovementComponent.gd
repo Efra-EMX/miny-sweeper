@@ -16,7 +16,7 @@ func move(target_coords:Vector2i) -> void:
 		move_tween.kill()
 	
 	parent_entity.direction = target_coords - parent_entity.coords
-	if Global.terrain.is_tile_revealed(target_coords) and Global.terrain.is_tile_loaded(target_coords):
+	if Global.terrain.is_tile_revealed(target_coords) and Global.terrain.is_tile_loaded(target_coords) and Entity.get_entity_on_coords(target_coords) == null:
 		parent_entity.coords = target_coords
 		move_tween = Global.terrain.move_to(parent_entity, target_coords)
 	else:

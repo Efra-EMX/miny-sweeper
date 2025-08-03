@@ -45,8 +45,8 @@ unique_name_in_owner = true
 script = ExtResource("7_qfy7v")
 target_agent = NodePath("..")
 anystate_transitions = {
-"down": NodePath("down"),
 "hurt": NodePath("hurt"),
+&"idle": NodePath("idle"),
 &"stun": NodePath("stun")
 }
 
@@ -79,11 +79,15 @@ transitions = {
 }
 metadata/_custom_type_script = "uid://chifrsevdmxr5"
 
-[node name="hurt" type="LimboState" parent="StateMachine"]
+[node name="hurt" type="LimboState" parent="StateMachine" node_paths=PackedStringArray("animation_player")]
 script = ExtResource("8_4e7se")
 transitions = {
 "finished": NodePath("../idle")
 }
+timeout = 0.5
+animation_player = NodePath("../../AnimationPlayer")
+animation_name = &"Hurt"
+finish_state = true
 
 [node name="down" type="LimboState" parent="StateMachine"]
 script = ExtResource("8_4e7se")

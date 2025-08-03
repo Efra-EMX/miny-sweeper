@@ -9,12 +9,12 @@
 [ext_resource type="Script" uid="uid://cxvbmhkgsdkj2" path="res://scenes/gui/StatsDisplayTile.gd" id="4_rsk2y"]
 [ext_resource type="Texture2D" uid="uid://c0jtulky1mmm4" path="res://scenes/objects/bomb.png" id="5_rsk2y"]
 [ext_resource type="PackedScene" uid="uid://bxbuvvlr3cw8y" path="res://scenes/menus/title_screen.tscn" id="6_8qn6h"]
-[ext_resource type="Script" uid="uid://brcrpl27mmu18" path="res://scenes/menus/essentials/PropertyDisplay.gd" id="6_blxdk"]
-[ext_resource type="Texture2D" uid="uid://brcu3fw8afexb" path="res://assets/shapes/highlight.png" id="6_i5f5j"]
+[ext_resource type="Script" uid="uid://ct2of328dwyvb" path="res://scenes/menus/essentials/MethodDisplay.gd" id="6_rptx6"]
 [ext_resource type="Script" uid="uid://dh2sguw75mt8h" path="res://scenes/menus/essentials/Page.gd" id="7_amlt1"]
-[ext_resource type="Script" uid="uid://d1nejr8h0ohvi" path="res://scripts/classes/TileHighlight.gd" id="7_i5f5j"]
 [ext_resource type="LabelSettings" uid="uid://ynnau0nhkj75" path="res://assets/ui/themes/Axial/label-header.tres" id="8_blxdk"]
 [ext_resource type="Script" uid="uid://d2hk27uowfiym" path="res://scenes/menus/essentials/buttons/ChangeSceneButton.gd" id="9_rptx6"]
+[ext_resource type="LabelSettings" uid="uid://dxf80yevn66gn" path="res://assets/ui/themes/Axial/label-default.tres" id="11_rptx6"]
+[ext_resource type="PackedScene" uid="uid://pp6x1la4tq2k" path="res://scenes/gui/TileHighlight.tscn" id="15_blxdk"]
 
 [node name="Stage" type="Node2D"]
 script = ExtResource("1_h25yc")
@@ -25,67 +25,6 @@ layer = 100
 [node name="Pause Screen" parent="UI" instance=ExtResource("1_0uo0i")]
 visible = false
 mouse_filter = 1
-
-[node name="GUI" type="Control" parent="UI"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="HP Display" type="TextureRect" parent="UI/GUI"]
-clip_contents = true
-layout_mode = 0
-offset_right = 60.0
-offset_bottom = 12.0
-texture = ExtResource("3_y7b51")
-stretch_mode = 1
-script = ExtResource("4_rsk2y")
-stats_name = &"hp"
-
-[node name="MP Display" type="TextureRect" parent="UI/GUI"]
-clip_contents = true
-layout_mode = 0
-offset_top = 18.0
-offset_right = 66.0
-offset_bottom = 34.0
-texture = ExtResource("5_rsk2y")
-stretch_mode = 1
-script = ExtResource("4_rsk2y")
-stats_name = &"mp"
-
-[node name="PanelContainer" type="PanelContainer" parent="UI/GUI"]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -6.0
-offset_top = -4.0
-grow_horizontal = 0
-grow_vertical = 0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/GUI/PanelContainer"]
-layout_mode = 2
-
-[node name="BombsLeft" type="Label" parent="UI/GUI/PanelContainer/VBoxContainer" node_paths=PackedStringArray("node")]
-layout_mode = 2
-script = ExtResource("6_blxdk")
-node = NodePath("../../../../..")
-property_path = "bombs_left"
-text_format = "Bombs left: %s"
-metadata/_custom_type_script = "uid://brcrpl27mmu18"
-
-[node name="EnemiesLeft" type="Label" parent="UI/GUI/PanelContainer/VBoxContainer" node_paths=PackedStringArray("node")]
-layout_mode = 2
-script = ExtResource("6_blxdk")
-node = NodePath("../../../../..")
-property_path = "enemies_left"
-text_format = "Enemies left: %s"
-metadata/_custom_type_script = "uid://brcrpl27mmu18"
 
 [node name="Title Screen" parent="UI" instance=ExtResource("6_8qn6h")]
 
@@ -167,6 +106,142 @@ data = {
 &"title": true
 }
 
+[node name="GameWon" type="Control" parent="UI" node_paths=PackedStringArray("default_focus")]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("7_amlt1")
+default_focus = NodePath("GameOver Menu/VBoxContainer/Restart")
+metadata/_custom_type_script = "uid://dh2sguw75mt8h"
+
+[node name="ColorRect" type="ColorRect" parent="UI/GameWon"]
+process_mode = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.392157)
+
+[node name="GameOver Menu" type="Control" parent="UI/GameWon"]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -56.0
+offset_right = 56.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/GameWon/GameOver Menu"]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -48.0
+offset_right = 48.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Title" type="Label" parent="UI/GameWon/GameOver Menu/VBoxContainer"]
+layout_mode = 2
+text = "YOU WON!"
+label_settings = ExtResource("8_blxdk")
+horizontal_alignment = 1
+
+[node name="Subtitle" type="Label" parent="UI/GameWon/GameOver Menu/VBoxContainer"]
+layout_mode = 2
+text = "Miny successfuly sweeped the whole area!"
+label_settings = ExtResource("11_rptx6")
+horizontal_alignment = 1
+
+[node name="Control" type="Control" parent="UI/GameWon/GameOver Menu/VBoxContainer"]
+custom_minimum_size = Vector2(0, 6)
+layout_mode = 2
+
+[node name="Restart" type="Button" parent="UI/GameWon/GameOver Menu/VBoxContainer"]
+layout_mode = 2
+text = "RESTART"
+script = ExtResource("9_rptx6")
+target_scene = "uid://bg248w7ij17mf"
+data = {
+&"title": false
+}
+
+[node name="Return to TItle" type="Button" parent="UI/GameWon/GameOver Menu/VBoxContainer"]
+layout_mode = 2
+text = "RETURN TO TITLE"
+script = ExtResource("9_rptx6")
+target_scene = "uid://bg248w7ij17mf"
+data = {
+&"endless": false,
+&"title": true
+}
+
+[node name="GUI" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="HP Display" type="TextureRect" parent="UI/GUI"]
+clip_contents = true
+layout_mode = 0
+offset_right = 60.0
+offset_bottom = 12.0
+texture = ExtResource("3_y7b51")
+stretch_mode = 1
+script = ExtResource("4_rsk2y")
+stats_name = &"hp"
+
+[node name="MP Display" type="TextureRect" parent="UI/GUI"]
+clip_contents = true
+layout_mode = 0
+offset_top = 18.0
+offset_right = 66.0
+offset_bottom = 34.0
+texture = ExtResource("5_rsk2y")
+stretch_mode = 1
+script = ExtResource("4_rsk2y")
+stats_name = &"mp"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/GUI"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -7.0
+offset_top = -10.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="PanelContainer" type="PanelContainer" parent="UI/GUI/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="Statistics" type="Label" parent="UI/GUI/VBoxContainer/PanelContainer" node_paths=PackedStringArray("node")]
+layout_mode = 2
+script = ExtResource("6_rptx6")
+node = NodePath("../../../../..")
+method_name = "get_statistics"
+
 [node name="Terrain" parent="." instance=ExtResource("3_ds8dt")]
 
 [node name="Camera" type="Camera2D" parent="." node_paths=PackedStringArray("target_list")]
@@ -176,17 +251,13 @@ target_list = [NodePath("../Miny")]
 [node name="Miny" parent="." instance=ExtResource("4_h25yc")]
 position = Vector2(84, 84)
 
-[node name="TileHighlight" type="Sprite2D" parent="."]
-texture = ExtResource("6_i5f5j")
-script = ExtResource("7_i5f5j")
+[node name="TileHighlight" parent="." instance=ExtResource("15_blxdk")]
 
 [node name="TopLabel" type="CanvasLayer" parent="."]
 layer = 10
 follow_viewport_enabled = true
 
-[node name="TileHighlight" type="Sprite2D" parent="TopLabel"]
-modulate = Color(1, 1, 1, 0.588235)
-texture = ExtResource("6_i5f5j")
-script = ExtResource("7_i5f5j")
+[node name="TileHighlight" parent="TopLabel" instance=ExtResource("15_blxdk")]
+self_modulate = Color(1, 1, 1, 0.588235)
 
 [editable path="UI/Title Screen"]

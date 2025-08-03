@@ -4,10 +4,13 @@ class_name Stage
 var bombs_left: int:
 	get():
 		return Global.terrain.get_bombs_left()
-
 var enemies_left: int:
 	get():
 		return Global.terrain.get_enemies_left()
+var bombs_exploded: int = 0
+var enemies_defeated: int = 0
+
+var endless: bool = false
 
 func _enter_tree() -> void:
 	Global.stage = self
@@ -16,9 +19,12 @@ func _enter_tree() -> void:
 	
 	if SceneManager.passed_data.has(&"endless"):
 		if SceneManager.passed_data[&"endless"] == true:
+			endless = true
 			Global.terrain.bounds = Rect2i()
 
 func _ready() -> void:
+	AudioManager.play_bgm("The Third Sweeper Sister")
+	
 	if Global.game_running:
 		Global.game_running = false
 		TurnManager.stop()
@@ -55,8 +61,28 @@ func stop_game() -> void:
 	Page.switch_page($UI/GameOver)
 	Global.terrain.bomb_tilemap.show()
 
+func win_game() -> void:
+	Global.game_running = false
+	TurnManager.stop()
+	Page.switch_page($UI/GameWon)
+
+func get_statistics() -> String:
+	var stats: String = ""
+	stats += str("Turns: ", TurnManager.turn_counter, "\n")
+	if not endless:
+		stats += str("Bombs left: ", bombs_left, "\n")
+		stats += str("Enemies left: ", enemies_left, "\n")
+	stats += str("Bombs exploded: ", bombs_exploded, "\n")
+	stats += str("Enemies defeated: ", enemies_defeated)
+	
+	return stats
+
 func _physics_process(delta: float) -> void:
 	if not Global.game_running:
+		return
+	
+	if bombs_left <= 0 and enemies_left <= 0:
+		win_game()
 		return
 	
 	if Global.player == null:

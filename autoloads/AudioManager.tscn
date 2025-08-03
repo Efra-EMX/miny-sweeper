@@ -1,7 +1,8 @@
-[gd_scene load_steps=15 format=3 uid="uid://bnij8nfsssolp"]
+[gd_scene load_steps=16 format=3 uid="uid://bnij8nfsssolp"]
 
 [ext_resource type="Script" uid="uid://dohbo3y5stalc" path="res://autoloads/AudioManager.gd" id="1_njld3"]
 [ext_resource type="AudioStream" uid="uid://csxe88oj0j8b3" path="res://assets/audio/sfx/cancel.wav" id="2_d0lq7"]
+[ext_resource type="AudioStream" uid="uid://b4a3ae8ctt386" path="res://assets/audio/bgm/The Third Sweeper Sister.ogg" id="2_k3oxk"]
 [ext_resource type="AudioStream" uid="uid://ctjmty2pryxox" path="res://assets/audio/sfx/drag.sfxr" id="4_3h1io"]
 [ext_resource type="AudioStream" uid="uid://bwglvre8gfnld" path="res://assets/audio/sfx/select.wav" id="4_18sxy"]
 [ext_resource type="AudioStream" uid="uid://casj2xwi4oqu7" path="res://assets/audio/sfx/drop.sfxr" id="5_4eenb"]
@@ -23,7 +24,8 @@ metadata/__load_path__ = "res://assets/audio/bgm/Reno_loop.ogg"
 script = ExtResource("1_njld3")
 bgm_list = {
 "Reno_intro": SubResource("Resource_vg6qs"),
-"Reno_loop": SubResource("Resource_fe0nf")
+"Reno_loop": SubResource("Resource_fe0nf"),
+"The Third Sweeper Sister": ExtResource("2_k3oxk")
 }
 sfx_list = {
 "break": ExtResource("11_m54sr"),

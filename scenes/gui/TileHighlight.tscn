@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://pp6x1la4tq2k"]
+
+[ext_resource type="Texture2D" uid="uid://brcu3fw8afexb" path="res://assets/shapes/highlight.png" id="1_vcwws"]
+[ext_resource type="Script" uid="uid://d1nejr8h0ohvi" path="res://scripts/classes/TileHighlight.gd" id="2_mebjh"]
+[ext_resource type="Texture2D" uid="uid://djvqmr5xqmid3" path="res://assets/tileset/Icons.aseprite" id="3_mebjh"]
+
+[node name="TileHighlight" type="Sprite2D"]
+texture = ExtResource("1_vcwws")
+script = ExtResource("2_mebjh")
+
+[node name="BombSprite" type="Sprite2D" parent="."]
+visible = false
+self_modulate = Color(1, 1, 1, 0.588235)
+texture = ExtResource("3_mebjh")
+hframes = 4
+frame = 3

@@ -14,7 +14,7 @@ func _enter() -> void:
 	AudioManager.play("hurt")
 	super._enter()
 	await get_tree().process_frame
-	agent.animation_player.stop()
+	agent.animation_player.play("Stunned")
 
 func _update(delta: float) -> void:
 	if agent.actionable:

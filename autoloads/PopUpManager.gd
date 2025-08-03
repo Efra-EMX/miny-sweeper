@@ -14,6 +14,7 @@ func pop_text(text, global_pos: Vector2, color: Color = Color.WHITE) -> void:
 	label.modulate = color
 	label.z_index = 5
 	label.visible = false
+	label.label_settings = preload("res://assets/ui/themes/Axial/label-default.tres")
 	await get_tree().process_frame
 	label.visible = true
 	label.global_position = global_pos - (label.size / 2)

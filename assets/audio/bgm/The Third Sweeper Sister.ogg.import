@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://b4a3ae8ctt386"
+path="res://.godot/imported/The Third Sweeper Sister.ogg-d3835dda9f48ebad11ab7e3fd8eb4d78.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/bgm/The Third Sweeper Sister.ogg"
+dest_files=["res://.godot/imported/The Third Sweeper Sister.ogg-d3835dda9f48ebad11ab7e3fd8eb4d78.oggvorbisstr"]
+
+[params]
+
+loop=true
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

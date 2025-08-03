@@ -1,0 +1,64 @@
+[gd_scene load_steps=4 format=4 uid="uid://c4f1kxxsqikwt"]
+
+[sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_8g055"]
+_data = PackedByteArray("AAADAAUAAAABAAAAkAAAAJAAAACEAgAAUklGRnwCAABXRUJQVlA4TG8CAAAvj8AjEB8gECD8VymxYmP+BSSE/+WNf+Y/gD9SIMnZ9rhtfoPoLghXvkfWgSD6CJ3+TEdIzuMjdPoVQDnAxOtUK64Nwh9QSiR/ekCXEf134LZtJNFzbjuDziavoDOa6Brw487oBRGr9yJyqff68KPXe77ZXh+HkXmnNzBPx+GJ+e9BMDfwnXmttmFmXml9T9ZaPIvSZm6l83nuU1lxZDagw4uobJZWrfnEFGZWTAyPzH+shgfwkewBmMyThQchIvLA/ENEBJXCkNwwb5PJ1nmVB87kh/SFsjDPPD9yNn+u64w3edtdnYELmU5LmyltXtSmdm16oEkvtenJCpmExFImm6VVjn9i/mu0KKFsMmVR+b54UufzYmaNioFVhZoBqlAxsNbazO5rlE9rUiNmaoDoaA3M03EYmXd6zzfb6+Pw+vCj13sRudQLIlbPjzujR9HR+U0EihMDUKqCBwBTAAClxdr0u3a1kf6lcBs+RPY2r5vNKxhEpgI7W06xcUTUYuLyzOzvyXtN+rNiAoaelHndAx/6gyOKatEQeVfTpDWdU3Oo6hxlLpKrRs55Ijqz5Ds4Ig9gCYCpqHM0BMAuBQAUTIm3HjLlvmgQmEjFuDDKjjIZZWe7si4M0md7UyZb0XYxljlbFqKIzS5D5L9Vmx5o00ttetJDJrPkB4GJZY4A2MwXA6BgSrwlD2AJgCHviiOGahLR5b66g6NzlYvk6hh0s3las7q7PDOrSrmGXl2kV0cUe+3hdQ986E3A0KtvRESqDqcrJk4rJDbPzpZTMIhMeh8ie6vtLg8ARttdlBQWEmz6vbQUwFLVF2kTgcU9AQA=")
+size_override = Vector2(144, 144)
+
+[sub_resource type="Animation" id="Animation_8dm26"]
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fqp2o"]
+_data = {
+&"Idle": SubResource("Animation_8dm26")
+}
+
+[node name="Explosion" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = SubResource("PortableCompressedTexture2D_8g055")
+hframes = 2
+vframes = 2
+metadata/_aseprite_wizard_interface_config_ = {
+"animation_section": false,
+"layer_section": false,
+"output_section": false,
+"pending_changes": {},
+"slice_section": false
+}
+metadata/_aseprite_wizard_config_ = {
+"embed_tex": true,
+"i_mode": 0,
+"keep_anim_length": false,
+"layers": [],
+"o_ex_p": "",
+"o_folder": "",
+"o_name": "",
+"only_visible": false,
+"player": "AnimationPlayer",
+"scale": "1.0",
+"slice": "",
+"source": "res://scenes/effects/explosion.ase",
+"source_uid": 332548937130886488
+}
+metadata/_aseprite_wizard_source_file_hash_ = "83bd0f4f6f6db3321a0c740503902509"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_fqp2o")
+}
+autoplay = "Idle"
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="queue_free" unbinds=1]

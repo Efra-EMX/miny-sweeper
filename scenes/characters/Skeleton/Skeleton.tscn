@@ -1,11 +1,11 @@
-[gd_scene load_steps=6 format=4 uid="uid://b4lxoo3a7thov"]
+[gd_scene load_steps=9 format=4 uid="uid://b4lxoo3a7thov"]
 
 [ext_resource type="PackedScene" uid="uid://1lpdh8fl68u" path="res://scenes/characters/BaseEnemy.tscn" id="1_hp4l2"]
 [ext_resource type="Script" uid="uid://dvdmbpt0kgsuh" path="res://scenes/characters/Skeleton/SkeletonAct.gd" id="2_esupy"]
 
 [sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_esupy"]
-_data = PackedByteArray("AAADAAUAAAABAAAAQAAAAEAAAAB0AQAAUklGRmwBAABXRUJQVlA4TF8BAAAvP8APEC9AEEASQCrL7I+wwxpkAhbrthL6C+FEmG00iL2mdf4sN/8B+H+imyRWgB1Jct3mUE4AW5uIVytG4HIEKOSfC0kBd37+RvSfgdu2jZR1+4T2F/E3RAfQSiXbrHhqzDmPlvfsY17BvKfmiU+RreeaA+NoWc8+7kzuPJf4Ftx7vmIAgNKeIcAQ1faeO2oeEMBI00ngIu0ZMkm3WHtukDb7nPOUFh6iZIuracLkQlPEep1pgvKrh0QTFrnwtG0uAAlKiwdF2tLixPAZ8GLdBQpcPIJOWw3LD7VOxsoDFBg7ah5u3SWPjgi0hMd/Gh1AK5Vss4LGnPNohTnmFSzMeeJzlDgw8vRxZ7KAb1HAAAAVLgOG+AWgwC1spG/wxphu6WGS1vhk/tQ2ocn0CQEIH+mtE0wYfioLRUD8YAU/7GfrTvJO6iExApEM0A+wRT4kkG9RA0UMuERHA+KXRgAA")
-size_override = Vector2(64, 64)
+_data = PackedByteArray("AAADAAUAAAABAAAAYAAAAEAAAAA6AgAAUklGRjICAABXRUJQVlA4TCUCAAAvX8APEC9AEEASQCrL7I+wwxpkAhbrthL6C+FEmG00iL2mdf4sN/8B+H+imyRWoN1GkiVJisAqEA5XZH18S4LFSpAI/YWpzJiqvudnRP8nIP4VFoD8pJJtzgpAvqDV3VdOSrY5KgB5qtV3TrS6+8pByTZP6u52X3mq1XcOtLr7ytGFNVF3t/vKQ62+c1dr15xdWAN1d7uvPHl7qrVrji6sgWEAyom3h1q75iYEmd8w7sqBtzNxEAIMcWLclSdYAOOxEGCIpyKBb0EA46mQSRqDIoHvQADjCMiG8xQySeepSGACgxDIiWQzBjJJ564sGKaUhyIBKU+iZIs7gQJAkQfJhMlDUQRE5a3olCEKh6IJysqdRBMWuVMKAst5km1zABKUsAmxaJqBOIq0Jca+DNuGc1MpIaWMcwkUmIdA0VYi9kVlCByElEXGUKDAGDCi+I6y+I6zPHOWJ755VIhATgoRyFMgIwI5+R+8AOQnlWzzk7S6+8rPqdV3fo66u91XftSF9Tm1ds1XAGDi7Suw7TwZd+UL5e5u7kKAIb6ivl/5HTxXq7uv1RzcbbxDnYqb1c6n1LsrNyGTtNYfPnd5e4JtQv3cRdwZ2yIBCL/XlQ8VAYInwYThX3qqihCgE0VA/M3HBAIglAN/2b+y/EzREgCIu5+kviRGIJ4VaEuychOgv8CMp4umZROMvQTyRzwvSRRo5QCvlLwF42DAb0RhG3koJBD/lgEA")
+size_override = Vector2(96, 64)
 
 [sub_resource type="Animation" id="Animation_esupy"]
 length = 0.8
@@ -23,9 +23,81 @@ tracks/0/keys = {
 "values": [0, 1]
 }
 
+[sub_resource type="Animation" id="Animation_m05i6"]
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2(-4, 0), Vector2(4, 0), Vector2(-3, 0), Vector2(2, 0), Vector2(-1, 0), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+
+[sub_resource type="Animation" id="Animation_2lb2n"]
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2(-4, 0), Vector2(4, 0), Vector2(-3, 0), Vector2(2, 0), Vector2(-1, 0), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [3]
+}
+
+[sub_resource type="Animation" id="Animation_0iv8t"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_m05i6"]
 _data = {
-&"Idle": SubResource("Animation_esupy")
+&"Hurt": SubResource("Animation_m05i6"),
+&"Idle": SubResource("Animation_esupy"),
+&"RESET": SubResource("Animation_0iv8t"),
+&"Stunned": SubResource("Animation_2lb2n")
 }
 
 [node name="Skeleton" instance=ExtResource("1_hp4l2")]
@@ -33,8 +105,9 @@ _data = {
 [node name="Sprite" parent="." index="2"]
 texture_filter = 1
 texture = SubResource("PortableCompressedTexture2D_esupy")
-hframes = 2
+hframes = 3
 vframes = 2
+frame = 2
 metadata/_aseprite_wizard_interface_config_ = {
 "pending_changes": {}
 }
@@ -53,21 +126,13 @@ metadata/_aseprite_wizard_config_ = {
 "source": "res://scenes/characters/Skeleton/Skeleton.aseprite",
 "source_uid": 7355296129689921247
 }
-metadata/_aseprite_wizard_source_file_hash_ = "c9c31b2617bf1cf38aa451e29edd611f"
+metadata/_aseprite_wizard_source_file_hash_ = "f99e45b11b143f98ee9b56f413b9d847"
 
 [node name="AnimationPlayer" parent="." index="4"]
 libraries = {
 &"": SubResource("AnimationLibrary_m05i6")
 }
 autoplay = "Idle"
-
-[node name="StateMachine" parent="." index="5"]
-anystate_transitions = {
-"down": NodePath("down"),
-"hurt": NodePath("hurt"),
-&"idle": NodePath("idle"),
-&"stun": NodePath("stun")
-}
 
 [node name="act" parent="StateMachine" index="1"]
 script = ExtResource("2_esupy")
