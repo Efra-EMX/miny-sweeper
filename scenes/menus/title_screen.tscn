@@ -87,6 +87,11 @@ data = {
 &"title": false
 }
 
+[node name="Tutorial" type="Button" parent="Main Menu/VBoxContainer/Menus"]
+layout_mode = 2
+text = "TUTORIAL"
+script = ExtResource("3_rgi7d")
+
 [node name="Settings" type="Button" parent="Main Menu/VBoxContainer/Menus" node_paths=PackedStringArray("target_page")]
 layout_mode = 2
 text = "SETTINGS"

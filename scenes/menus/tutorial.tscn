@@ -1,4 +1,21 @@
-[gd_scene format=3 uid="uid://1if4lcye8sd"]
+[gd_scene load_steps=17 format=3 uid="uid://1if4lcye8sd"]
+
+[ext_resource type="Script" uid="uid://dgtfod450rid6" path="res://scenes/menus/essentials/buttons/PageSwitchButton.gd" id="1_vnofq"]
+[ext_resource type="Script" uid="uid://dh2sguw75mt8h" path="res://scenes/menus/essentials/Page.gd" id="2_2h84y"]
+[ext_resource type="Texture2D" uid="uid://cqwdaichragnd" path="res://assets/tutorials/Tutorials1.png" id="3_m5l38"]
+[ext_resource type="Texture2D" uid="uid://8v0x7bc75ev4" path="res://assets/tutorials/Tutorials2.png" id="4_40fd7"]
+[ext_resource type="Texture2D" uid="uid://c3ppsmxaiimiw" path="res://assets/tutorials/Tutorials3.png" id="5_m5l38"]
+[ext_resource type="Texture2D" uid="uid://6otf26hl5kqk" path="res://assets/tutorials/Tutorials5.png" id="5_xkjag"]
+[ext_resource type="Texture2D" uid="uid://dmhyc2rykwdwq" path="res://assets/tutorials/Tutorials4.png" id="6_40fd7"]
+[ext_resource type="Texture2D" uid="uid://din2ks4jt0vad" path="res://assets/tutorials/Tutorials6.png" id="6_hjm7i"]
+[ext_resource type="Texture2D" uid="uid://82dfr7p8ee5r" path="res://assets/tutorials/Tutorials7.png" id="7_bjse0"]
+[ext_resource type="Texture2D" uid="uid://bng6fbr7qdn4n" path="res://assets/tutorials/Tutorials8.png" id="8_mwl7n"]
+[ext_resource type="Texture2D" uid="uid://b8bp1teqbnwfn" path="res://assets/tutorials/Tutorials9.png" id="9_jh4fd"]
+[ext_resource type="Texture2D" uid="uid://cig2twojnmcer" path="res://assets/tutorials/Tutorials10.png" id="10_iqtif"]
+[ext_resource type="Texture2D" uid="uid://bc3sumll23qns" path="res://assets/tutorials/Tutorials11.png" id="11_jkoa3"]
+[ext_resource type="Texture2D" uid="uid://b5f6f57lsot63" path="res://assets/tutorials/Tutorials12.png" id="12_6t6mh"]
+[ext_resource type="Texture2D" uid="uid://dcua0qtabvywi" path="res://assets/tutorials/Tutorials13.png" id="15_jkoa3"]
+[ext_resource type="Texture2D" uid="uid://ckem3qwerkgov" path="res://assets/tutorials/Tutorials14.png" id="16_6t6mh"]
 
 [node name="Tutorial" type="Control"]
 layout_mode = 3
@@ -8,3 +25,573 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+
+[node name="Page1" type="Control" parent="." node_paths=PackedStringArray("default_focus")]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_2h84y")
+default_focus = NodePath("NextButton")
+metadata/_custom_type_script = "uid://dh2sguw75mt8h"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Page1"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Page1/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="TextureRect" type="TextureRect" parent="Page1/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(150, 120)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("3_m5l38")
+expand_mode = 1
+
+[node name="TextureRect2" type="TextureRect" parent="Page1/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(150, 120)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("4_40fd7")
+expand_mode = 1
+
+[node name="Panel" type="PanelContainer" parent="Page1/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Page1/VBoxContainer/Panel"]
+layout_mode = 2
+bbcode_enabled = true
+text = "Use [color=ffdd8c]WASD or directional arrow keys[/color] to move around.
+
+You can also move into a wall in order to [color=ffdd8c]break it."
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="NextButton" type="Button" parent="Page1" node_paths=PackedStringArray("target_page")]
+z_index = 1
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -32.0
+offset_top = -12.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "NEXT
+"
+script = ExtResource("1_vnofq")
+target_page = NodePath("../../Page2")
+metadata/_custom_type_script = "uid://dgtfod450rid6"
+
+[node name="ColorRect" type="ColorRect" parent="Page1"]
+process_mode = 2
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.392157)
+
+[node name="Page2" type="Control" parent="." node_paths=PackedStringArray("default_focus")]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_2h84y")
+default_focus = NodePath("NextButton")
+metadata/_custom_type_script = "uid://dh2sguw75mt8h"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Page2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Page2/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="TextureRect" type="TextureRect" parent="Page2/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(150, 120)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("5_xkjag")
+expand_mode = 1
+
+[node name="TextureRect2" type="TextureRect" parent="Page2/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(150, 120)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("6_hjm7i")
+expand_mode = 1
+
+[node name="Panel" type="PanelContainer" parent="Page2/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Page2/VBoxContainer/Panel"]
+layout_mode = 2
+bbcode_enabled = true
+text = "[color=ffdd8c]But don't break the walls carelessly![/color]
+
+There are [color=d95763]BOMBS[/color] in there sometimes, which will explode if you break it!"
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="NextButton" type="Button" parent="Page2" node_paths=PackedStringArray("target_page")]
+z_index = 1
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -32.0
+offset_top = -12.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "NEXT
+"
+script = ExtResource("1_vnofq")
+target_page = NodePath("../../Page3")
+metadata/_custom_type_script = "uid://dgtfod450rid6"
+
+[node name="ColorRect" type="ColorRect" parent="Page2"]
+process_mode = 2
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.392157)
+
+[node name="Page3" type="Control" parent="." node_paths=PackedStringArray("default_focus")]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_2h84y")
+default_focus = NodePath("NextButton")
+metadata/_custom_type_script = "uid://dh2sguw75mt8h"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Page3"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Page3/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="TextureRect" type="TextureRect" parent="Page3/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(150, 120)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("7_bjse0")
+expand_mode = 1
+
+[node name="TextureRect2" type="TextureRect" parent="Page3/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(150, 120)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("8_mwl7n")
+expand_mode = 1
+
+[node name="Panel" type="PanelContainer" parent="Page3/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Page3/VBoxContainer/Panel"]
+layout_mode = 2
+bbcode_enabled = true
+text = "Each of these numbers indicate [color=ffdd8c]how many bombs are in the surrounding 8 tiles.[/color]
+
+If you think there's a bomb inside a certain wall,
+you can [color=ffdd8c]RIGHT CLICK[/color] in order to [color=ffdd8c]flag it."
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="NextButton" type="Button" parent="Page3" node_paths=PackedStringArray("target_page")]
+z_index = 1
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -32.0
+offset_top = -12.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "NEXT
+"
+script = ExtResource("1_vnofq")
+target_page = NodePath("../../Page4")
+metadata/_custom_type_script = "uid://dgtfod450rid6"
+
+[node name="ColorRect" type="ColorRect" parent="Page3"]
+process_mode = 2
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.392157)
+
+[node name="Page4" type="Control" parent="." node_paths=PackedStringArray("default_focus")]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_2h84y")
+default_focus = NodePath("NextButton")
+metadata/_custom_type_script = "uid://dh2sguw75mt8h"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Page4"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Page4/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="TextureRect" type="TextureRect" parent="Page4/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(150, 120)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("9_jh4fd")
+expand_mode = 1
+
+[node name="TextureRect2" type="TextureRect" parent="Page4/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(150, 120)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("10_iqtif")
+expand_mode = 1
+
+[node name="Panel" type="PanelContainer" parent="Page4/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Page4/VBoxContainer/Panel"]
+layout_mode = 2
+bbcode_enabled = true
+text = "Once [color=ffdd8c]flagged[/color], you can safely hit that wall in order [color=ffdd8c]take the bomb[/color] without detonating it."
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="NextButton" type="Button" parent="Page4" node_paths=PackedStringArray("target_page")]
+z_index = 1
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -32.0
+offset_top = -12.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "NEXT
+"
+script = ExtResource("1_vnofq")
+target_page = NodePath("../../Page5")
+metadata/_custom_type_script = "uid://dgtfod450rid6"
+
+[node name="ColorRect" type="ColorRect" parent="Page4"]
+process_mode = 2
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.392157)
+
+[node name="Page5" type="Control" parent="." node_paths=PackedStringArray("default_focus")]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_2h84y")
+default_focus = NodePath("NextButton")
+metadata/_custom_type_script = "uid://dh2sguw75mt8h"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Page5"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Page5/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="TextureRect" type="TextureRect" parent="Page5/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(150, 120)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("11_jkoa3")
+expand_mode = 1
+
+[node name="TextureRect2" type="TextureRect" parent="Page5/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(150, 120)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("12_6t6mh")
+expand_mode = 1
+
+[node name="Panel" type="PanelContainer" parent="Page5/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Page5/VBoxContainer/Panel"]
+layout_mode = 2
+bbcode_enabled = true
+text = "If you have a bomb, you can throw it by [color=ffdd8c]LEFT CLICKING[/color] on a tile within [color=ffa3d1]Miny[/color]'s range.
+
+The bomb will explode and obliterate any enemies caught in the explosion."
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="NextButton" type="Button" parent="Page5" node_paths=PackedStringArray("target_page")]
+z_index = 1
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -32.0
+offset_top = -12.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "NEXT
+"
+script = ExtResource("1_vnofq")
+target_page = NodePath("../../Page6")
+metadata/_custom_type_script = "uid://dgtfod450rid6"
+
+[node name="ColorRect" type="ColorRect" parent="Page5"]
+process_mode = 2
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.392157)
+
+[node name="Page6" type="Control" parent="." node_paths=PackedStringArray("default_focus")]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_2h84y")
+default_focus = NodePath("")
+metadata/_custom_type_script = "uid://dh2sguw75mt8h"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Page6"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Page6/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="TextureRect" type="TextureRect" parent="Page6/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(150, 120)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("5_m5l38")
+expand_mode = 1
+
+[node name="TextureRect2" type="TextureRect" parent="Page6/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(150, 120)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("6_40fd7")
+expand_mode = 1
+
+[node name="Panel" type="PanelContainer" parent="Page6/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Page6/VBoxContainer/Panel"]
+layout_mode = 2
+bbcode_enabled = true
+text = "If you don't have any bomb, you can hit an enemy in order to [color=ffdd8c]stun[/color] them.
+
+This will not kill them, but it can buy you time until you get a bomb."
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="NextButton" type="Button" parent="Page6" node_paths=PackedStringArray("target_page")]
+z_index = 1
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -32.0
+offset_top = -12.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "NEXT
+"
+script = ExtResource("1_vnofq")
+target_page = NodePath("../../Page7")
+metadata/_custom_type_script = "uid://dgtfod450rid6"
+
+[node name="Page7" type="Control" parent="." node_paths=PackedStringArray("default_focus")]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_2h84y")
+default_focus = NodePath("")
+metadata/_custom_type_script = "uid://dh2sguw75mt8h"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Page7"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Page7/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="TextureRect" type="TextureRect" parent="Page7/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(150, 120)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("15_jkoa3")
+expand_mode = 1
+
+[node name="TextureRect2" type="TextureRect" parent="Page7/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(150, 120)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("16_6t6mh")
+expand_mode = 1
+
+[node name="Panel" type="PanelContainer" parent="Page7/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Page7/VBoxContainer/Panel"]
+layout_mode = 2
+bbcode_enabled = true
+text = "Lastly, only hit flagged wall [color=ffdd8c]when you are sure that there is a bomb inside.[/color]
+
+If there is no bomb inside, you will get [color=ffdd8c]stunned[/color] instead."
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="NextButton" type="Button" parent="Page7" node_paths=PackedStringArray("target_page")]
+z_index = 1
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -32.0
+offset_top = -12.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "NEXT
+"
+script = ExtResource("1_vnofq")
+target_page = NodePath("../../Page2")
+metadata/_custom_type_script = "uid://dgtfod450rid6"
