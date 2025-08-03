@@ -33,6 +33,8 @@ func _unhandled_input(event: InputEvent) -> void:
 			var mouse_position: Vector2 = get_viewport().get_camera_2d().get_global_mouse_position()
 			var coords: Vector2i = Global.terrain.base_tilemap.local_to_map(Global.terrain.base_tilemap.to_local(mouse_position))
 			
+			if not Global.terrain.is_tile_loaded(coords):
+				return
 			if not Global.terrain.is_tile_revealed(coords):
 				return
 			if not parent_entity.is_tile_within_range(coords):
@@ -41,6 +43,11 @@ func _unhandled_input(event: InputEvent) -> void:
 			parent_entity.direction = round(Vector2(parent_entity.coords).direction_to(coords))
 			
 			%AnimationPlayer.play("Throw")
+			PopUpManager.pop_text([
+				"Fire in the hole!",
+				"Take this!",
+				"Kaboom!"
+			].pick_random(), Global.terrain.coords_to_position(parent_entity.coords) + Vector2(0,-12))
 			await %AnimationPlayer.animation_finished
 			%AnimationPlayer.play("Idle")
 			

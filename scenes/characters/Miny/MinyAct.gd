@@ -38,6 +38,7 @@ func _enter() -> void:
 				"Just as I thought!"
 			].pick_random(), Global.terrain.coords_to_position(agent.coords) + Vector2(0,-12))
 			await Global.terrain.reveal(target_coords)
+			#Global.terrain.reveal(target_coords)
 			agent.stats_component.mp += 1
 			AudioManager.play("confirm")
 		else:

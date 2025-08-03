@@ -7,22 +7,6 @@
 _data = PackedByteArray("AAADAAUAAAABAAAAYAAAAEAAAAA6AgAAUklGRjICAABXRUJQVlA4TCUCAAAvX8APEC9AEEASQCrL7I+wwxpkAhbrthL6C+FEmG00iL2mdf4sN/8B+H+imyRWoN1GkiVJisAqEA5XZH18S4LFSpAI/YWpzJiqvudnRP8nIP4VFoD8pJJtzgpAvqDV3VdOSrY5KgB5qtV3TrS6+8pByTZP6u52X3mq1XcOtLr7ytGFNVF3t/vKQ62+c1dr15xdWAN1d7uvPHl7qrVrji6sgWEAyom3h1q75iYEmd8w7sqBtzNxEAIMcWLclSdYAOOxEGCIpyKBb0EA46mQSRqDIoHvQADjCMiG8xQySeepSGACgxDIiWQzBjJJ564sGKaUhyIBKU+iZIs7gQJAkQfJhMlDUQRE5a3olCEKh6IJysqdRBMWuVMKAst5km1zABKUsAmxaJqBOIq0Jca+DNuGc1MpIaWMcwkUmIdA0VYi9kVlCByElEXGUKDAGDCi+I6y+I6zPHOWJ755VIhATgoRyFMgIwI5+R+8AOQnlWzzk7S6+8rPqdV3fo66u91XftSF9Tm1ds1XAGDi7Suw7TwZd+UL5e5u7kKAIb6ivl/5HTxXq7uv1RzcbbxDnYqb1c6n1LsrNyGTtNYfPnd5e4JtQv3cRdwZ2yIBCL/XlQ8VAYInwYThX3qqihCgE0VA/M3HBAIglAN/2b+y/EzREgCIu5+kviRGIJ4VaEuychOgv8CMp4umZROMvQTyRzwvSRRo5QCvlLwF42DAb0RhG3koJBD/lgEA")
 size_override = Vector2(96, 64)
 
-[sub_resource type="Animation" id="Animation_esupy"]
-length = 0.8
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.4),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [0, 1]
-}
-
 [sub_resource type="Animation" id="Animation_m05i6"]
 length = 0.5
 tracks/0/type = "value"
@@ -50,6 +34,37 @@ tracks/1/keys = {
 "values": [2]
 }
 
+[sub_resource type="Animation" id="Animation_esupy"]
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="Animation" id="Animation_0iv8t"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
 [sub_resource type="Animation" id="Animation_2lb2n"]
 length = 0.5
 tracks/0/type = "value"
@@ -75,21 +90,6 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [3]
-}
-
-[sub_resource type="Animation" id="Animation_0iv8t"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:offset")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_m05i6"]
