@@ -182,7 +182,7 @@ texture_filter = 1
 texture = SubResource("PortableCompressedTexture2D_jgi4d")
 hframes = 4
 vframes = 3
-frame = 9
+frame = 1
 metadata/_aseprite_wizard_interface_config_ = {
 "pending_changes": {}
 }
@@ -280,5 +280,13 @@ transitions = {
 &"finished": NodePath("../idle")
 }
 metadata/_custom_type_script = "uid://chifrsevdmxr5"
+
+[node name="Range" type="Line2D" parent="."]
+position = Vector2(12, 12)
+points = PackedVector2Array(-72, -24, -48, -24, -48, -48, -24, -48, -24, -72, 0, -72, 0, -48, 24, -48, 24, -24, 48, -24, 48, 0, 24, 0, 24, 24, 0, 24, 0, 48, -24, 48, -24, 24, -48, 24, -48, 0, -72, 0, -72, -24)
+width = 1.0
+default_color = Color(1, 0.866667, 0.54902, 1)
+begin_cap_mode = 1
+end_cap_mode = 1
 
 [connection signal="damage_taken" from="StatsComponent" to="Sprite/Flasher" method="flash" unbinds=1]

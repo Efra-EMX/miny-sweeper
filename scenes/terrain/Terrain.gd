@@ -198,6 +198,9 @@ func reveal(coords: Vector2i) -> void:
 		Global.stage.add_child(new_enemy)
 		new_enemy.state_machine.dispatch.call_deferred("stun")
 	
+	if is_tile_has_bomb(coords):
+		Global.stage.bombs_uncovered += 1
+	
 	#if not (is_tile_has_bomb_nearby(coords) or is_tile_has_bomb(coords)):
 		#var chance: int = randi_range(1, 16)
 		#if chance <= 1:
@@ -215,6 +218,7 @@ func reveal(coords: Vector2i) -> void:
 	AudioManager.play("break")
 	set_wall(coords, false)
 	update_label(coords)
+	Global.stage.tiles_uncovered += 1
 
 func chain_reveal(coords: Vector2i) -> void:
 	if is_tile_revealed(coords):

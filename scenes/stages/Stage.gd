@@ -7,8 +7,10 @@ var bombs_left: int:
 var enemies_left: int:
 	get():
 		return Global.terrain.get_enemies_left()
+var bombs_uncovered: int
 var bombs_exploded: int = 0
 var enemies_defeated: int = 0
+var tiles_uncovered: int = 0
 
 var endless: bool = false
 
@@ -71,9 +73,11 @@ func get_statistics() -> String:
 	stats += str("Turns: ", TurnManager.turn_counter, "\n")
 	if not endless:
 		stats += str("Bombs left: ", bombs_left, "\n")
-		stats += str("Enemies left: ", enemies_left, "\n")
+		stats += str("Enemies left: ", enemies_left, "\n\n")
+	stats += str("Bombs uncovered: ", bombs_uncovered, "\n")
 	stats += str("Bombs exploded: ", bombs_exploded, "\n")
-	stats += str("Enemies defeated: ", enemies_defeated)
+	stats += str("Enemies defeated: ", enemies_defeated, "\n")
+	stats += str("Tiles uncovered: ", tiles_uncovered)
 	
 	return stats
 

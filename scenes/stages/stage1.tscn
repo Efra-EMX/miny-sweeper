@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bg248w7ij17mf"]
+[gd_scene load_steps=18 format=3 uid="uid://bg248w7ij17mf"]
 
 [ext_resource type="PackedScene" uid="uid://y4ut4m7cynpc" path="res://scenes/menus/pause screen/pause_screen.tscn" id="1_0uo0i"]
 [ext_resource type="Script" uid="uid://cefahidwlnnog" path="res://scenes/stages/Stage.gd" id="1_h25yc"]
@@ -13,7 +13,9 @@
 [ext_resource type="Script" uid="uid://dh2sguw75mt8h" path="res://scenes/menus/essentials/Page.gd" id="7_amlt1"]
 [ext_resource type="LabelSettings" uid="uid://ynnau0nhkj75" path="res://assets/ui/themes/Axial/label-header.tres" id="8_blxdk"]
 [ext_resource type="Script" uid="uid://d2hk27uowfiym" path="res://scenes/menus/essentials/buttons/ChangeSceneButton.gd" id="9_rptx6"]
+[ext_resource type="Script" uid="uid://c7elr1qx832tq" path="res://scenes/menus/essentials/ToggleVisibilityButton.gd" id="11_ohosn"]
 [ext_resource type="LabelSettings" uid="uid://dxf80yevn66gn" path="res://assets/ui/themes/Axial/label-default.tres" id="11_rptx6"]
+[ext_resource type="PackedScene" uid="uid://1if4lcye8sd" path="res://scenes/menus/tutorial.tscn" id="13_ohosn"]
 [ext_resource type="PackedScene" uid="uid://pp6x1la4tq2k" path="res://scenes/gui/TileHighlight.tscn" id="15_blxdk"]
 
 [node name="Stage" type="Node2D"]
@@ -27,9 +29,10 @@ visible = false
 mouse_filter = 1
 
 [node name="Title Screen" parent="UI" instance=ExtResource("6_8qn6h")]
+mouse_force_pass_scroll_events = false
 
-[node name="Start" parent="UI/Title Screen/Main Menu/Menus" index="0" node_paths=PackedStringArray("node")]
-node = NodePath("../../../../..")
+[node name="Start" parent="UI/Title Screen/Main Menu/VBoxContainer/Menus" index="0" node_paths=PackedStringArray("node")]
+node = NodePath("../../../../../..")
 method_name = "start_game"
 
 [node name="GameOver" type="Control" parent="UI" node_paths=PackedStringArray("default_focus")]
@@ -219,7 +222,7 @@ stretch_mode = 1
 script = ExtResource("4_rsk2y")
 stats_name = &"mp"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/GUI"]
+[node name="Stats" type="VBoxContainer" parent="UI/GUI"]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -231,16 +234,76 @@ offset_top = -10.0
 grow_horizontal = 0
 grow_vertical = 0
 
-[node name="PanelContainer" type="PanelContainer" parent="UI/GUI/VBoxContainer"]
+[node name="Hide" type="Button" parent="UI/GUI/Stats" node_paths=PackedStringArray("nodes")]
+layout_mode = 2
+size_flags_horizontal = 8
+focus_mode = 0
+text = "HIDE STATS"
+script = ExtResource("11_ohosn")
+nodes = [NodePath("../PanelContainer"), NodePath("."), NodePath("../Show")]
+
+[node name="Show" type="Button" parent="UI/GUI/Stats" node_paths=PackedStringArray("nodes")]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 8
+focus_mode = 0
+text = "SHOW STATS"
+script = ExtResource("11_ohosn")
+nodes = [NodePath("../PanelContainer"), NodePath("."), NodePath("../Hide")]
+
+[node name="PanelContainer" type="PanelContainer" parent="UI/GUI/Stats"]
 layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 2
 
-[node name="Statistics" type="Label" parent="UI/GUI/VBoxContainer/PanelContainer" node_paths=PackedStringArray("node")]
+[node name="Statistics" type="Label" parent="UI/GUI/Stats/PanelContainer" node_paths=PackedStringArray("node")]
 layout_mode = 2
 script = ExtResource("6_rptx6")
 node = NodePath("../../../../..")
 method_name = "get_statistics"
+
+[node name="Controls" type="VBoxContainer" parent="UI/GUI"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -8.0
+offset_right = 73.0
+grow_vertical = 0
+
+[node name="Hide" type="Button" parent="UI/GUI/Controls" node_paths=PackedStringArray("nodes")]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+focus_mode = 0
+text = "HIDE CONTROLS"
+script = ExtResource("11_ohosn")
+nodes = [NodePath("."), NodePath("../Show"), NodePath("../PanelContainer")]
+
+[node name="Show" type="Button" parent="UI/GUI/Controls" node_paths=PackedStringArray("nodes")]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+focus_mode = 0
+text = "SHOW CONTROLS"
+script = ExtResource("11_ohosn")
+nodes = [NodePath("../Hide"), NodePath("."), NodePath("../PanelContainer")]
+
+[node name="PanelContainer" type="PanelContainer" parent="UI/GUI/Controls"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="Controls" type="Label" parent="UI/GUI/Controls/PanelContainer"]
+layout_mode = 2
+text = "WASD = Move, break wall, stun enemy
+Left click = Throw bomb
+Right click = Place flag
+Middle click = Drag camera
+Mouse wheel = Zoom"
+
+[node name="Tutorial" parent="UI" instance=ExtResource("13_ohosn")]
 
 [node name="Terrain" parent="." instance=ExtResource("3_ds8dt")]
 

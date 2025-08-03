@@ -1,9 +1,9 @@
-[gd_scene load_steps=15 format=3 uid="uid://bxbuvvlr3cw8y"]
+[gd_scene load_steps=14 format=3 uid="uid://bxbuvvlr3cw8y"]
 
 [ext_resource type="Script" uid="uid://cwaeofrl1dlrv" path="res://scenes/menus/essentials/VersionDisplay.gd" id="1_mxeaf"]
 [ext_resource type="Script" uid="uid://dh2sguw75mt8h" path="res://scenes/menus/essentials/Page.gd" id="1_xc71b"]
 [ext_resource type="Script" uid="uid://cfmtsvwmgl8hd" path="res://scenes/menus/essentials/LinkText.gd" id="2_87tfl"]
-[ext_resource type="FontFile" uid="uid://dn727l3ca5xc6" path="res://assets/ui/themes/Axial/AXIAL.ttf" id="2_oxovb"]
+[ext_resource type="Texture2D" uid="uid://ds7ybklb43nas" path="res://assets/ui/logos/MinySweeper.aseprite" id="2_gquoy"]
 [ext_resource type="Script" uid="uid://dkp0gixmus7fj" path="res://scenes/menus/essentials/buttons/MethodButton.gd" id="3_30q4t"]
 [ext_resource type="Script" uid="uid://dgtfod450rid6" path="res://scenes/menus/essentials/buttons/PageSwitchButton.gd" id="3_rgi7d"]
 [ext_resource type="Script" uid="uid://d2hk27uowfiym" path="res://scenes/menus/essentials/buttons/ChangeSceneButton.gd" id="4_gquoy"]
@@ -11,13 +11,6 @@
 [ext_resource type="PackedScene" uid="uid://da2eta75lyh4w" path="res://scenes/menus/settings menu/settings_page.tscn" id="6_2wpxt"]
 [ext_resource type="LabelSettings" uid="uid://ynnau0nhkj75" path="res://assets/ui/themes/Axial/label-header.tres" id="6_fgrip"]
 [ext_resource type="Script" uid="uid://cagjps2oc35q5" path="res://scenes/menus/essentials/buttons/QuitButton.gd" id="6_vc36c"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_lioak"]
-font = ExtResource("2_oxovb")
-font_size = 18
-outline_size = 16
-outline_color = Color(0.223529, 0.239216, 0.321569, 1)
-shadow_size = 0
 
 [sub_resource type="Gradient" id="Gradient_30q4t"]
 offsets = PackedFloat32Array(0, 0.5, 1)
@@ -57,42 +50,34 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_xc71b")
 active_on_ready = true
-default_focus = NodePath("Menus/Start")
+default_focus = NodePath("VBoxContainer/Menus/Start")
 
-[node name="Label" type="Label" parent="Main Menu"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Main Menu"]
 layout_mode = 1
-anchors_preset = 14
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_top = -39.5
-offset_bottom = -8.5
-grow_horizontal = 2
-grow_vertical = 2
-text = "MINY SWEEPER"
-label_settings = SubResource("LabelSettings_lioak")
-horizontal_alignment = 1
-
-[node name="Menus" type="VBoxContainer" parent="Main Menu"]
-layout_mode = 1
-anchors_preset = 8
+anchors_preset = 13
 anchor_left = 0.5
-anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -32.0
-offset_top = -2.0
-offset_right = 32.0
-offset_bottom = 46.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Start" type="Button" parent="Main Menu/Menus"]
+[node name="Label" type="TextureRect" parent="Main Menu/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_gquoy")
+stretch_mode = 3
+
+[node name="Menus" type="VBoxContainer" parent="Main Menu/VBoxContainer"]
+custom_minimum_size = Vector2(72, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+alignment = 1
+
+[node name="Start" type="Button" parent="Main Menu/VBoxContainer/Menus"]
 layout_mode = 2
 text = "START"
 script = ExtResource("3_30q4t")
 
-[node name="Endless" type="Button" parent="Main Menu/Menus"]
+[node name="Endless" type="Button" parent="Main Menu/VBoxContainer/Menus"]
 layout_mode = 2
 text = "ENDLESS"
 script = ExtResource("4_gquoy")
@@ -102,19 +87,19 @@ data = {
 &"title": false
 }
 
-[node name="Settings" type="Button" parent="Main Menu/Menus" node_paths=PackedStringArray("target_page")]
+[node name="Settings" type="Button" parent="Main Menu/VBoxContainer/Menus" node_paths=PackedStringArray("target_page")]
 layout_mode = 2
 text = "SETTINGS"
 script = ExtResource("3_rgi7d")
-target_page = NodePath("../../../Settings Page")
+target_page = NodePath("../../../../Settings Page")
 
-[node name="Credits" type="Button" parent="Main Menu/Menus" node_paths=PackedStringArray("target_page")]
+[node name="Credits" type="Button" parent="Main Menu/VBoxContainer/Menus" node_paths=PackedStringArray("target_page")]
 layout_mode = 2
 text = "CREDITS"
 script = ExtResource("3_rgi7d")
-target_page = NodePath("../../../Credits Page")
+target_page = NodePath("../../../../Credits Page")
 
-[node name="Quit" type="Button" parent="Main Menu/Menus"]
+[node name="Quit" type="Button" parent="Main Menu/VBoxContainer/Menus"]
 layout_mode = 2
 text = "QUIT"
 script = ExtResource("6_vc36c")
@@ -183,13 +168,19 @@ offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 2
 bbcode_enabled = true
-text = "[center]Game design, programming, artist, animator, composer, and basically everything:
+text = "[center]Game developer, pixel artist, music composer:
 [color=80dfff]Efra_EMX[/color]
+
+Beta testers:
+[color=80dfff]SiriusSushi, Bezhodeft, Xurzerth, Riel, Hikam, Nia, Hirohara, AcikMango, Sachisu, Blushanka, Jafar, Hakuna, Angga, Meinma, Jeconiah[/color]
+
+Plugins used:
+[color=80dfff]LimboAI by limbonaut
+Aseprite Wizard by viniciusgerevini
+gdfxr by timothyqiu[/color]
 
 Special thanks:
 [color=80dfff]YOU[/color]
-
-
 
 Thank you for playing!"
 
